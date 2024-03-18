@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,9 @@ Route::get('/', function () {
     return view('clients.home');
 });
 
+Route::get('/admin/users', [UserController::class, 'index'])->name('user.list');
+Route::get('/admin/products', [ProductController::class, 'index'])->name('product.list');
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.list');
+
 
 

@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class Users extends Model
+class Products extends Model
 {
     use HasFactory;
 
-    public function getAllUsers()
+    public function getAllProducts()
     {
-        $users = DB::select('SELECT * from users');
-        return $users;
+        $products = DB::select('SELECT * from products');
+        return $products;
     }
 
     public function addUser($data)
     {
-        Db::insert('INSERT INTO users (fullname,email,create_at) value (?,?,?)', $data);
+        Db::insert('INSERT INTO product (fullname,email,create_at) value (?,?,?)', $data);
     }
 
     public function updateUser($data, $id)
