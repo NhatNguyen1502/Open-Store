@@ -9,6 +9,8 @@ use DB;
 class Users extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
 
     public function getAllUsers()
     {

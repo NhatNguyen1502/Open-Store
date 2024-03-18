@@ -20,9 +20,11 @@ Route::get('/', function () {
     return view('clients.home');
 });
 
-Route::get('/admin/users', [UserController::class, 'index'])->name('user.list');
-Route::get('/admin/products', [ProductController::class, 'index'])->name('product.list');
-Route::get('/admin/user', [UserController::class, 'index'])->name('user.list');
+Route::get('/admin/users', [UserController::class, 'index'])->name('user.index');
+Route::post('/admin/users', [UserController::class, 'store'])->name('user.create');
+Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
+
+Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
 
 
 

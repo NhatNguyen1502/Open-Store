@@ -18,20 +18,30 @@ class UserController extends Controller
         return view('admin.user' , ['users' =>$users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'name' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'status' => 'required',
+        ]);
+
+        $user = new Users();
+        $user->email = $request->email;
+        $user->name = $request->name;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->phone_number = $request->phone_number;
+        $user->status = $request->status;
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
     /**
