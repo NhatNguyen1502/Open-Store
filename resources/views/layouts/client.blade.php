@@ -16,7 +16,6 @@
 
 <body>
     @include('blocks.header')
-
     @include('blocks.footer')
     @section('sidebar')
         <p>Main sidebar</p>
