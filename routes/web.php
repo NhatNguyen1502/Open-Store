@@ -20,11 +20,14 @@ Route::get('/', function () {
     return view('clients.home');
 });
 
-Route::get('/admin/users', [UserController::class, 'index'])->name('user.index');
-Route::post('/admin/users', [UserController::class, 'store'])->name('user.create');
-Route::get('/admin/products', [ProductController::class, 'index'])->name('product.index');
+Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+Route::post('/admin/users', [UserController::class, 'store'])->name('users.create');
+Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
-Route::get('/admin/user', [UserController::class, 'index'])->name('user.index');
+
+Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+
 
 
 

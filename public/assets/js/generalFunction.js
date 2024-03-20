@@ -247,3 +247,4 @@ function updateUser(data) {
     fetch(userApi + `/${data.id}`, option)
         .then((response) => response.json())
 }
+   

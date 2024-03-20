@@ -4,7 +4,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">New user</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <form action="{{route('user.create')}}" method="POST"> 
+    <form action="{{route('users.create')}}" method="POST"> 
         @csrf
         <div class="modal-body">
             <div class="mb-3">
@@ -71,59 +71,7 @@
             <td>{{$item->role}}</td>
             <td>{{$item->status}}</td>
             <td>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#update{{$item->id}}" onclick="passDataUsersBeforeUpdate({{$item->id}})">Update</button>
-                <div class="modal fade" id="update{{$item->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Update user</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form>
-                                <div class="modal-body">
-                                    <div class="mb-3">
-                                        <label for="uName-update-{{$item->id}}" class="col-form-label">User name: <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="uName-update-{{$item->id}}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="email-update-{{$item->id}}" class="col-form-label">Email: <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}}$" id="email-update-{{$item->id}}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="address-update-{{$item->id}}" class="col-form-label">Address: <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="address-update-{{$item->id}}" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="phone-update-{{$item->id}}" class="col-form-label">Phone: <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="phone-update-{{$item->id}}" required pattern="^0[0-9]{9,10}}$">
-                                    </div>
-                                    <div class="mb-3">
-                                        Role: <span class="text-danger">*</span>
-                                        <div class="btn-group">
-                                            <input type="radio" class="btn-check" name="role-update-{{$item->id}}" id="admin-update-{{$item->id}}" value="admin">
-                                            <label class="btn btn-outline-primary" for="admin-update-{{$item->id}}">Admin</label>
-                                            <input type="radio" class="btn-check" name="role-update-{{$item->id}}" id="user-update-{{$item->id}}" value="user">
-                                            <label class="btn btn-outline-primary" for="user-update-{{$item->id}}">User</label>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        Status: <span class="text-danger">*</span>
-                                        <div class="btn-group">
-                                            <input type="radio" class="btn-check" name="status-update-{{$item->id}}" id="active-update-{{$item->id}}" value="Active">
-                                            <label class="btn btn-outline-primary" for="active-update-{{$item->id}}">Active</label>
-                                            <input type="radio" class="btn-check" name="status-update-{{$item->id}}" id="unactive-update-{{$item->id}}" value="Unactive">
-                                            <label class="btn btn-outline-primary" for="unactive-update-{{$item->id}}">Unactive</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" id="updateUser" onclick="checkAndHandleUserData({{$item->id}})">Accept</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn btn-primary"><a class="nav-link text-light" href="{{route('users.edit', ['id' => $item->id])}}">Update</a></button>                
             </td>
         </tr>
     @endforeach

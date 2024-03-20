@@ -17,8 +17,6 @@ class UserController extends Controller
         $users = $this->users->getAllUsers();
         return view('admin.user' , ['users' =>$users]);
     }
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -26,53 +24,47 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users',
+            'phone_number' => 'required|unique:users',
             'name' => 'required',
             'password' => 'required',
             'role' => 'required',
             'status' => 'required',
         ]);
 
-        $user = new Users();
-        $user->email = $request->email;
-        $user->name = $request->name;
-        $user->password = bcrypt($request->password);
-        $user->role = $request->role;
-        $user->phone_number = $request->phone_number;
-        $user->status = $request->status;
-        $user->save();
+        $this->users->addUser($request);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $user = $this->users::findOrFail($id);
+        return view('admin.userEdit', compact('user'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $id,
+            'name' => 'required',
+            'role' => 'required',
+            'status' => 'required',
+        ]);
+        $data = $request->only([
+            'name',
+            'email',
+            'role',
+            'status',
+            'phone_number',
+        ]);
+        $user = $this->users::findOrFail($id);
+        $user->update($data);
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    }     
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        
     }
 }
