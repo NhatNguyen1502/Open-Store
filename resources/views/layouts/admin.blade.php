@@ -46,8 +46,6 @@
             </div>
         </div>
     </div>
-    <script src="../js/generalFunction.js"></script>
-    <script src="../js/admin.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
 </html>
