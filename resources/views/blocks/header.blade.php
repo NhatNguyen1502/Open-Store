@@ -1,10 +1,19 @@
 <div class="alert text-center bg-success text-light rounded-3" id="message" role="alert" style="display: none;">
 </div>
+
+
+
+
+
+
+
+
+
 <!-- modal login -->
 <div class="modal fade" id="modal1" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header  align-items-center">
+            <div class="modal-header align-items-center">
                 <h5 class="modal-title">Log in</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -22,14 +31,21 @@
                     </div>
                     <button type="submit" class="btn btn-primary" onclick="checkLogIn()">Log in</button>
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" data-bs-toggle="modal"
-                        data-bs-target="#modal2">Sign up</button>
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal"
-                        data-bs-target="#modal3" onclick="showEmailModal()">Forget password</button>
+                        data-bs-target="#modal2" href="#">Sign up</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
 <!-- modal sign up -->
 <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
     <div class="modal-dialog">
@@ -78,9 +94,6 @@
                     <button type="submit" class="btn btn-info" onclick="checkSignUp()">Sign up</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal"
                         data-bs-target="#modal1">Log in</button>
-                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal" data-bs-toggle="modal"
-                        data-bs-target="#modal3" onclick="showEmailModal()">Forget
-                        password</button>
                 </div>
             </form>
         </div>

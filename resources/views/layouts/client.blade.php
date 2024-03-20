@@ -16,6 +16,8 @@
 
 <body>
     @include('blocks.header')
+    @yield('login')
+    @yield('signup')
     @include('blocks.footer')
     @section('sidebar')
         <p>Main sidebar</p>

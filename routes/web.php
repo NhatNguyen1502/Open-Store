@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LoginController;
 
 
 /*
@@ -25,4 +26,10 @@ Route::get('/admin/products', [ProductController::class, 'index'])->name('produc
 Route::get('/admin/user', [UserController::class, 'index'])->name('user.list');
 
 
+Route::get('/login', [LoginController::class, 'login']) ->name('user.login');
+Route::post('/', [LoginController::class, 'signup']) ->name('user.signup');
 
+
+Route::get('/form', function () {
+    return view('clients.loginForm');
+});
