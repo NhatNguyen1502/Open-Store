@@ -4,11 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use DB;
 
 class Products extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'email',
+        'role',
+        'status',
+        'phone_number',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function getAllProducts()
     {
@@ -16,19 +31,23 @@ class Products extends Model
         return $products;
     }
 
-    public function addUser($data)
+    public function addProduct($data)
     {
-        Db::insert('INSERT INTO product (fullname,email,create_at) value (?,?,?)', $data);
+        $product = new Products();
+        $product->name = $data->name;
+        $product->price = $data->price;
+        $product->category_id = $data->category_id;
+        $product->discount = $data->discount;
+        $product->stock = $data->stock;
+        $product->image = $data->image;
+        $product->description = $data->description;
+        $product->status = $data->status;
+        $product->save();
     }
 
-    public function updateUser($data, $id)
+    public function updateproduct($data, $id)
     {
         $data = array_merge($data, [$id]);
-        return DB::update('UPDATE ' . $this->table . ' SET fullname =?,email =?, update_at= ? where id=?', $data);
-    }
-    
-    public function deleteUser($id)
-    {
-        return  DB::delete("DELETE FROM $this->table WHERE id=? ", [$id]);
+        return DB::update('UPDATE ' . $this->table . ' SET name =?,email =?, role=?, phone_number=?, status=? where id=?', $data);
     }
 }

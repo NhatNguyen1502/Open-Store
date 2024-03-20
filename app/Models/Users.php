@@ -42,9 +42,4 @@ class Users extends Model
         $data = array_merge($data, [$id]);
         return DB::update('UPDATE ' . $this->table . ' SET name =?,email =?, role=?, phone_number=?, status=? where id=?', $data);
     }
-
-    public function deleteUser($id)
-    {
-        return  DB::delete("DELETE FROM $this->table WHERE id=? ", [$id]);
-    }
 }

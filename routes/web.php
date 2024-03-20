@@ -27,6 +27,7 @@ Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update
 
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
+Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
 
 
 
