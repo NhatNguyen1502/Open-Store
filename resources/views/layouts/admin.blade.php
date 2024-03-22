@@ -27,12 +27,14 @@
         </div>
         <div class="row">
             <div class="col-1">
-                <input type="radio" class="btn-check" name="management-options" id="product-option" autocomplete="off">
-                <label class="btn btn-outline-warning w-100" for="product-option">Products</label>
-                <input type="radio" class="btn-check" name="management-options" id="user-option" autocomplete="off">
-                <label class="btn btn-outline-warning w-100" for="user-option">Users</label> 
-                <input type="radio" class="btn-check" name="management-options" id="order-option" autocomplete="off">
-                <label class="btn btn-outline-warning w-100" for="order-option">Orders</label>
+                <input type="radio" class="btn-check" name="management-options" {{$UI == "products" ? "checked" : ""}} >
+                <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('products.index')}}">Products</a></label>
+                <input type="radio" class="btn-check" name="management-options" {{$UI == "users" ? "checked" : ""}} >
+                <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('users.index')}}">Users</a></label>
+                <input type="radio" class="btn-check" name="management-options" {{$UI == "orders" ? "checked" : ""}} >
+                <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('products.index')}}">Orders</a></label>
+                <input type="radio" class="btn-check" name="management-options" {{$UI == "banners" ? "checked" : ""}} >
+                <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('products.index')}}">Banners</a></label>
             </div> 
             <div class="col-11">
                 <table class="table">
