@@ -22,12 +22,14 @@ Route::get('/', function () {
 
 Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.create');
-Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
 
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
+Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 
 

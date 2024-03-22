@@ -46,33 +46,29 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $product = $this->products::findOrFail($id);
+        $categories = DB::table('category')->get();
+        return view('admin.productEdit', compact('product', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->only([
+            'name', 'description', 'price','discount', 'stock', 'category_id', 'status'
+        ]);
+        if ($request->hasFile('image')) {
+            $imageName = Str::uuid().'.'.$request->image->extension();
+            $request->file('image')->storeAs('images', $imageName, 'public');
+            $data['image'] = $imageName;
+        }
+
+        $product = $this->products::findOrFail($id);
+        $product->update($data);
+        return redirect()->route('products.index')->with('success', 'product updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

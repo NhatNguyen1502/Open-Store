@@ -45,9 +45,4 @@ class Products extends Model
         $product->save();
     }
 
-    public function updateproduct($data, $id)
-    {
-        $data = array_merge($data, [$id]);
-        return DB::update('UPDATE ' . $this->table . ' SET name =?,email =?, role=?, phone_number=?, status=? where id=?', $data);
-    }
 }

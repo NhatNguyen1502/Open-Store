@@ -36,10 +36,4 @@ class Users extends Model
         $user->status = $data->status;
         $user->save();
     }
-
-    public function updateUser($data, $id)
-    {
-        $data = array_merge($data, [$id]);
-        return DB::update('UPDATE ' . $this->table . ' SET name =?,email =?, role=?, phone_number=?, status=? where id=?', $data);
-    }
 }
