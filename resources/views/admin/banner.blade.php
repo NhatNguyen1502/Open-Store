@@ -53,7 +53,7 @@
             <td>{{ $item->status }}</td>
             <td>
                 <button class="btn btn-primary"><a class="nav-link text-light"
-                    href="{{ route('users.edit', ['id' => $item->id]) }}">Update</a></button>
+                    href="{{ route('banners.edit', ['id' => $item->id]) }}">Update</a></button>
             </td>
         </tr>
     @endforeach

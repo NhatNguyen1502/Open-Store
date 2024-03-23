@@ -38,28 +38,25 @@ class BannerController extends Controller
         return redirect()->route('banners.index')->with('success', 'Banner created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $banner = $this->banners::findOrFail($id);
+        return view('admin.bannerEdit', compact('banner'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->only([
+            'name', 'status'
+        ]);
+        if ($request->hasFile('image')) {
+            $imageName = Str::uuid().'.'.$request->image->extension();
+            $request->file('image')->move('banner_images', $imageName);
+            $data['image'] = $imageName;
+        }
+        $banner = $this->banners::findOrFail($id);
+        $banner->update($data);
+        return redirect()->route('banners.index')->with('success', 'banner updated successfully.');
     }
 
     /**

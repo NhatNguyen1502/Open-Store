@@ -35,8 +35,8 @@ Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('
 
 Route::get('/admin/banners', [BannerController::class, 'index'])->name('banners.index');
 Route::post('/admin/banners', [BannerController::class, 'store'])->name('banners.create');
-// Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('banners.edit');
-// Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
+Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('banners.edit');
+Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
 
 
 
