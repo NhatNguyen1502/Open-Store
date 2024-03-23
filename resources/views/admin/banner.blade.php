@@ -18,9 +18,9 @@
             <div class="mb-3">
                 Status: <span class="text-danger">*</span>
                 <div class="btn-group">
-                    <input type="radio" class="btn-check" name="status" id="active" value="active">
+                    <input type="radio" class="btn-check" name="status" id="active" value="active" required>
                     <label class="btn btn-outline-primary" for="active">Active</label>
-                    <input type="radio" class="btn-check" name="status" id="inactive" value="inactive">
+                    <input type="radio" class="btn-check" name="status" id="inactive" value="inactive" required>
                     <label class="btn btn-outline-primary" for="inactive">In Active</label>
                 </div>
             </div>
@@ -53,8 +53,25 @@
             <td>{{ $item->status }}</td>
             <td>
                 <button class="btn btn-primary"><a class="nav-link text-light"
-                    href="{{ route('banners.edit', ['id' => $item->id]) }}">Update</a></button>
+                        href="{{ route('banners.edit', ['id' => $item->id]) }}">Update</a></button>
+                <form class="d-inline" id="deleteForm-{{$item->id}}" action="{{ route('banners.delete', ['id' => $item->id]) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" onclick="handleDelete({{$item->id}})">Delete</button>
+                </form>
             </td>
         </tr>
     @endforeach
 @endsection
+
+<script>
+    function handleDelete(id) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+        var confirmation = confirm("Bạn có chắc chắn muốn xóa không?");
+        if (confirmation) {
+            document.getElementById(`deleteForm-${id}`).submit(); // Nếu người dùng đồng ý, submit form
+        }
+    }
+</script>

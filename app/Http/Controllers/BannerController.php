@@ -59,11 +59,9 @@ class BannerController extends Controller
         return redirect()->route('banners.index')->with('success', 'banner updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        Banners::destroy($id);
+        return redirect()->route('banners.index')->with('success', 'Banner deleted successfully.');
     }
 }
