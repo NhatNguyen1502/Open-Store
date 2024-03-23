@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BannerController;
+
 
 
 /*
@@ -30,6 +32,11 @@ Route::get('/admin/products', [ProductController::class, 'index'])->name('produc
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
 Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
+
+Route::get('/admin/banners', [BannerController::class, 'index'])->name('banners.index');
+Route::post('/admin/banners', [BannerController::class, 'store'])->name('banners.create');
+// Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('banners.edit');
+// Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
 
 
 
