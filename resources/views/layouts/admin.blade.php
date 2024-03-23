@@ -35,11 +35,13 @@
                 <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('products.index')}}">Orders</a></label>
                 <input type="radio" class="btn-check" name="management-options" {{$UI == "banners" ? "checked" : ""}} >
                 <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('products.index')}}">Banners</a></label>
+                <input type="radio" class="btn-check" name="management-options" {{$UI == "categories" ? "checked" : ""}} >
+                <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('categories.index')}}">Categories</a></label>
             </div> 
             <div class="col-11">
                 <table class="table">
                     <thead>
-                        @yield('thead')
+                        @yield('thead') 
                     </thead>
                     <tbody id="tbody">
                         @yield('tbody')
@@ -47,7 +49,9 @@
                 </table>
             </div>
         </div>
+        @yield('update_modal')
     </div>
+    @yield('script')
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
 </html>

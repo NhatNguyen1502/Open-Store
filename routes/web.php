@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoriesController;
 
 
 /*
@@ -32,5 +33,10 @@ Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->nam
 Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 
-
-
+Route::prefix('/admin/categories')->group(function () {
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/', [CategoriesController::class,'store'])->name('categories.create');
+    Route::get('/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
+});
