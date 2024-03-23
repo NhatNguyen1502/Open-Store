@@ -20,6 +20,18 @@ class ProductController extends Controller
         return view('admin.product', compact('products'));
     }
 
+    public function showProducts()
+    {
+        $products = $this->products->getAllProducts();
+        return view('clients.product', compact('products'));
+    }
+    
+    public function showCart()
+    {
+        // $products = $this->products->getAllProducts();
+        return view('clients.cart');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

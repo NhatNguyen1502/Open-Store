@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src=" https://kit.fontawesome.com/e1aaf64c7e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}">
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @yield('css');
 </head>
 
@@ -18,10 +18,11 @@
     @include('blocks.header')
     @yield('login')
     @yield('signup')
+    @yield('content')
     @include('blocks.footer')
     @section('sidebar')
         <p>Main sidebar</p>
     @endsection
 </body>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </html>

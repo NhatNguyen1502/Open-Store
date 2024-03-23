@@ -14,17 +14,17 @@
 <div class="container">
     @section('login')
     <div class="loginForm justify-content-center" style='display: flex' id='loginForm'>
-        <form method='get' action="{{route('user.login')}}">
+        <form method='get' action="{{ route('user.login') }}"> 
             <div class="modal-body" style="width: 400px">
                 <div class="mb-3">
                     <label for="userEmail-inp" class="col-form-label">Email: <span
                             class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="userEmail-inp" required>
+                    <input type="email" class="form-control" id="userEmail-inp" name="email" required> 
                 </div>
                 <div class="mb-3">
                     <label for="pword-inp" class="col-form-label">Password: <span
                             class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="pword-inp" required>
+                    <input type="password" class="form-control" id="pword-inp" name="password" required> 
                 </div>
                 <button type="submit" class="btn btn-primary">Log in</button>
                 <button type="button" class="btn btn-info" data-bs-dismiss="modal" data-bs-toggle="modal"
