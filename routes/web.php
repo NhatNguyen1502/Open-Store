@@ -52,10 +52,10 @@ Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('or
 
 
 Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
-Route::get('/login', [LoginController::class, 'login']) ->name('user.login');
-Route::post('/', [LoginController::class, 'signup']) ->name('user.signup');
+Route::get('/signupForm', [LoginController::class, 'showSignup']) ->name('user.showSignup');
+Route::post('/signupForm', [LoginController::class, 'signup']) ->name('user.signup');
 
 
-Route::get('/form', function () {
-    return view('clients.loginForm');
-});
+// Route::get('/form', function () {
+//     return view('clients.loginForm');
+// });
