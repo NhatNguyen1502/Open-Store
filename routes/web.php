@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -66,6 +67,16 @@ Route::get('/login', [LoginController::class, 'showLogin']) ->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']) ->name('logout');
 
+
+Route::get('/form', function () {
+    return view('clients.loginForm');
+});
+
+
+Route::prefix('admin/contact')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+    Route::patch('/{id}', [ContactController::class, 'update'])->name('contact.update');
+});
 // Route::group(['middleware' => 'guest'], function () {
 //     Route::get('/login-signup', [LoginController::class, 'showLogin']) ->name('login');
 //     Route::post('/login-signup', [LoginController::class, 'login']) ->name('signup');
