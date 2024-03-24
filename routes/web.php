@@ -23,6 +23,7 @@ use App\Http\Controllers\OrderController;
 |
 */
 
+
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
@@ -32,10 +33,12 @@ Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
 
-Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-Route::post('/admin/users', [UserController::class, 'store'])->name('users.create');
-Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.create');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+});
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
@@ -59,11 +62,11 @@ Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.ind
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 
 
-Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
-Route::get('/login', [LoginController::class, 'login']) ->name('user.login');
-Route::post('/', [LoginController::class, 'signup']) ->name('user.signup');
+Route::get('/login', [LoginController::class, 'showLogin']) ->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']) ->name('logout');
 
-
-Route::get('/form', function () {
-    return view('clients.loginForm');
-});
+// Route::group(['middleware' => 'guest'], function () {
+//     Route::get('/login-signup', [LoginController::class, 'showLogin']) ->name('login');
+//     Route::post('/login-signup', [LoginController::class, 'login']) ->name('signup');
+// });
