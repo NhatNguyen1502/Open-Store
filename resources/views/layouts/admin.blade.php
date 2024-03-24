@@ -20,7 +20,7 @@
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add"
                         id="addButton">Add +</button>
                     <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y"
-                        onclick="logOut()"><i class="fa-solid fa-right-from-bracket fs-3"></i></button>
+                        onclick="handleLogout()"><i class="fa-solid fa-right-from-bracket fs-3"></i></button>
                 @show
                 <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -63,5 +63,28 @@
     @yield('script')
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </body>
+<script>
+    function handleLogout() {
+        // Gửi yêu cầu đến server để xóa session
+        fetch('{{ route('logout') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Xóa user_id và email khỏi session trên client side
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('email');
+                    // Hoặc nếu bạn muốn chuyển hướng người dùng sau khi đăng xuất
+                    window.location.href = '{{ route('login') }}';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    };
+</script>
 
 </html>
