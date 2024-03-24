@@ -59,8 +59,8 @@
         </div>
     </div>
     <div class="container">
+        @isset($recommendProducts)
         <hr>
-        @isset($products)
             <section class="recommend-section">
                 <h2 class="text-center fw-bold">RECOMMEND FOR YOU</h2>
                 <div class="row">
@@ -77,6 +77,25 @@
                 </div>
             </section>
         @endisset
+        <hr>
+        <section class="discount-section">
+            <h2 class="fw-bold text-center mt-4">SALE PRODUCT</h2>
+            <div class="container">
+                <div class="row">
+                    @foreach ($saleProducts as $product)
+                        <div class="col-sm-3 col-12 hoverProducts text-center">
+                            <div class="container-image">
+                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
+                            </div>
+                            <p class="fw-bold mt-2">{{ $product->name }}</p>
+                            <span class="stock">{{ $product->stock }}</span>
+                            <p class="fw-bold fs-4">{{ $product->price }}</p>
+                        </div>
+                    @endforeach
+                </div>
+
+            </div>
+        </section>
         <hr>
         <section class="products-section">
             <h2 class="fw-bold text-center mt-4">ALL PRODUCTS</h2>

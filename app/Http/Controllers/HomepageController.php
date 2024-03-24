@@ -13,7 +13,8 @@ class HomepageController extends Controller
     public function index()
     {
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
-        return view('clients.home', compact('products'));
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
+        return view('clients.home', compact('products', 'saleProducts'));
     }
 
     public function showRecommendations() {
@@ -25,6 +26,7 @@ class HomepageController extends Controller
         $data = $request->category;
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
         $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();   
-        return view('clients.home', compact('recommendProducts', 'products'));
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
+        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts',));
     }
 }
