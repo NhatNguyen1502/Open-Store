@@ -25,12 +25,33 @@ class ProductController extends Controller
         return view('admin.product', compact('products', 'UI', 'categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showProducts()
     {
-        
+        $products = $this->products->getAllProducts();
+        return view('clients.product', compact('products'));
+    }
+    
+    public function showCart($userId = 1)
+        {
+            $cartProducts = DB::table('carts')
+                ->where('user_id', $userId)
+                ->join('products', 'carts.product_id', '=', 'products.id')
+                ->select('products.*', 'carts.quantity')
+                ->get();
+            return view('clients.cart', compact('cartProducts'));
+            // return dd($cartProducts);
+        }
+
+
+    public function showCheckout($userId = 1)
+    {
+        $cartProducts = DB::table('carts')
+            ->where('user_id', $userId)
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->select('products.*', 'carts.quantity')
+            ->get();
+        return view('clients.checkout', compact('cartProducts'));
+        // return dd($cartProducts);
     }
 
     /**

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
 
@@ -20,9 +22,14 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('/', function () {
-    return view('clients.home');
-});
+Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+
+Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
+Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
+Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
+Route::get('/about', function () {
+    return view('clients.aboutUs');
+})->name('aboutUs');
 
 Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.create');
@@ -42,3 +49,13 @@ Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name
 
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
+
+
+Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
+Route::get('/login', [LoginController::class, 'login']) ->name('user.login');
+Route::post('/', [LoginController::class, 'signup']) ->name('user.signup');
+
+
+Route::get('/form', function () {
+    return view('clients.loginForm');
+});
