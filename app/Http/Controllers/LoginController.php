@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {   
 
-    private $products;
+    private $users;
     public function __construct()
     {   
         $this->users = new Users();

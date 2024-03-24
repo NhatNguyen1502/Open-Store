@@ -13,4 +13,8 @@ class Orders extends Model
     function getAllOrders() {
         return Orders::all();
     }
+
+    public function deleteOrder($id) {
+        Orders::where('id', $id)->delete();
+    }
 }

@@ -12,9 +12,9 @@ class ProductController extends Controller
 {
     private $products;
     public function __construct()
-    {   
+    {
         $this->products = new Products();
-    }   
+    }
 
     public function index()
     {
@@ -30,17 +30,17 @@ class ProductController extends Controller
         $products = $this->products->getAllProducts();
         return view('clients.product', compact('products'));
     }
-    
+
     public function showCart($userId = 1)
-        {
-            $cartProducts = DB::table('carts')
-                ->where('user_id', $userId)
-                ->join('products', 'carts.product_id', '=', 'products.id')
-                ->select('products.*', 'carts.quantity')
-                ->get();
-            return view('clients.cart', compact('cartProducts'));
-            // return dd($cartProducts);
-        }
+    {
+        $cartProducts = DB::table('carts')
+            ->where('user_id', $userId)
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->select('products.*', 'carts.quantity')
+            ->get();
+        return view('clients.cart', compact('cartProducts'));
+        // return dd($cartProducts);
+    }
 
 
     public function showCheckout($userId = 1)
@@ -59,7 +59,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $imageName = Str::uuid().'.'.$request->image->extension();
+        $imageName = Str::uuid() . '.' . $request->image->extension();
         $request->file('image')->storeAs('images', $imageName, 'public');
         $data = $request;
         $data->image = $imageName;
@@ -77,10 +77,10 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $data = $request->only([
-            'name', 'description', 'price','discount', 'stock', 'category_id', 'status'
+            'name', 'description', 'price', 'discount', 'stock', 'category_id', 'status'
         ]);
         if ($request->hasFile('image')) {
-            $imageName = Str::uuid().'.'.$request->image->extension();
+            $imageName = Str::uuid() . '.' . $request->image->extension();
             $request->file('image')->storeAs('images', $imageName, 'public');
             $data['image'] = $imageName;
         }
@@ -92,6 +92,7 @@ class ProductController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $this->products->deleteProduct($id);
+        return redirect()->route('products.index')->with('success', 'product deleted successfully.');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Products extends Model
 {
@@ -42,6 +42,11 @@ class Products extends Model
         $product->description = $data->description;
         $product->status = $data->status;
         $product->save();
+    }
+
+    public function deleteProduct($id)
+    {
+        DB::table('products')->where('id', $id)->delete();
     }
 
 }
