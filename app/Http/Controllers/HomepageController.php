@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Products;
 use App\Models\Contacts;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomepageController extends Controller
 {
@@ -16,13 +17,6 @@ class HomepageController extends Controller
         $this->products = new Products();
     }
 
-    public function index()
-    {
-        $products = $this->products->getAllProducts();
-        return view('clients.home', compact('products'));
-        // return dd($products);
-    }
-
     public function contact(Request $request)
     {
         $data = $request->all();
@@ -31,7 +25,25 @@ class HomepageController extends Controller
         $data['is_contact'] = '0';
         Contacts::create($data);
         return redirect()->route('homepage')->with('success', 'Contact is sent successfully.');
-        // return dd($data);
+    }
 
+    public function index()
+    {
+        $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
+        return view('clients.home', compact('products', 'saleProducts'));
+    }
+
+    public function showRecommendations() {
+        $categories = Category::all();
+        return view('clients.recommendations', compact('categories'));
+    }
+
+    public function handleRecommendations(Request $request) {
+        $data = $request->category;
+        $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
+        $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();   
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
+        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts',));
     }
 }

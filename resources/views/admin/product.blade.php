@@ -89,8 +89,22 @@
 
             <td>{{ $item->status }}</td>
             <td>
-                <button class="btn btn-primary"><a class="nav-link text-light"
-                        href="{{ route('products.edit', ['id' => $item->id]) }}">Update</a></button>
+                <div class="btn-group gap-1" role="group" aria-label="Button group">
+                    <button class="btn btn-primary rounded">
+                        <a class="nav-link text-light" href="{{ route('products.edit', ['id' => $item->id]) }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </button>
+
+                    <form id="delete-form-{{ $item->id }}"
+                        action="{{ route('products.delete', ['id' => $item->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
     @endforeach

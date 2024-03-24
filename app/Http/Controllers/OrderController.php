@@ -28,4 +28,9 @@ class OrderController extends Controller
         $order->update($data);
         return redirect()->route('orders.index');
     }
+
+    public function destroy($id){
+        $this->orders->deleteOrder($id);
+        return redirect()->route('orders.index')->with('success', 'Order deleted successfully.');
+    }
 }

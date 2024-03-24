@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{ asset('assets/css/hearder-footer.css') }}">
 <header class="header sticky-top bg-white">
     <nav class="container-fluid">
         <div class="row">
@@ -67,7 +68,7 @@
                     <div class="row justify-content-start w-100">
                         <div class="col-9 mt-2">
                             <ul class="menu justify-content-center">
-                                <li><a href="index.html">Home</a></li>
+                                <li><a href="{{ route('homepage') }}">Home</a></li>
                                 <li><a href="#">Category<span class="arrow">&#129175;</span></a>
                                     <ul class="sub-menu">
                                         <li><a href="category.html"
