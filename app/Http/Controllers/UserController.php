@@ -32,6 +32,7 @@ class UserController extends Controller
         $this->users->addUser($request);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
+        // return dd($request);
     }
 
     public function edit($id)
@@ -58,5 +59,10 @@ class UserController extends Controller
         $user = $this->users::findOrFail($id);
         $user->update($data);
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
-    }     
+    } 
+    
+    public function destroy(string $id){
+        $this->users->deleteUser($id);
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
 }

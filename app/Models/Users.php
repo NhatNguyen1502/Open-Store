@@ -37,4 +37,8 @@ class Users extends Model
         $user->status = $data->status;
         $user->save();
     }
+
+    public function deleteUser($id){
+        DB::table('users')->where('id', $id)->delete();
+    }
 }
