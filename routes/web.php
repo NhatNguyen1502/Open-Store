@@ -11,7 +11,6 @@ use App\Http\Controllers\OrderController;
 
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +31,12 @@ Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('check
 Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
+
+Route::get('/recommendations', [HomepageController::class, 'showRecommendations'])->name('recommendations');;
+
+Route::post('/recommendations', [HomepageController::class, 'handleRecommendations']);
+
+Route::post('/getCategories', [CategoriesController::class, 'getCategories'])->name('getCategories');
 
 Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
