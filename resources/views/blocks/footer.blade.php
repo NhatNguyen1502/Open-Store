@@ -22,7 +22,7 @@
         </div>
         <div class="row mt-sm-0 mt-5">
             <div class="col-sm-4 col-12 m-sm-5 mt-5">
-                <a href="index.html"><img src="../image/Logo.png" alt="logo" class="mt-sm-0 mt-5"
+                <a href="{{ route('homepage') }}"><img src="{{ asset('assets/image/Logo.png') }}" alt="logo" class="mt-sm-0 mt-5"
                         style="width: 100px;"></a>
                 <div class="fw-bold mt-2 mb-2">Contact</div>
                 <div class="mb-3">
