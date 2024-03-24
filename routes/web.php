@@ -6,6 +6,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\OrderController;
+
 
 
 
@@ -25,10 +27,6 @@ Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
-
-
-
-
 Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
@@ -49,6 +47,8 @@ Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name(
 Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
 Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name('banners.delete');
 
+Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 
 
 Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
