@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Session;
 
 class HomepageController extends Controller
 {
-    private $products;
-    private $contacts;
-    public function __construct()
-    {   
-        $this->products = new Products();
-    }
 
     public function contact(Request $request)
     {
