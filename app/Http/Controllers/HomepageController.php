@@ -1,14 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Models\Products;
+use App\Models\Contacts;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class HomepageController extends Controller
 {
+
+    public function contact(Request $request)
+    {
+        $data = $request->all();
+        $data['user_id'] = session('user_id');
+        $data['user_email'] = session('email');
+        $data['is_contact'] = '0';
+        Contacts::create($data);
+        return redirect()->route('homepage')->with('success', 'Contact is sent successfully.');
+    }
 
     public function index()
     {
