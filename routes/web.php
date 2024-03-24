@@ -12,7 +12,6 @@ use App\Http\Controllers\ContactController;
 
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +32,12 @@ Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('check
 Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
+
+Route::get('/recommendations', [HomepageController::class, 'showRecommendations'])->name('recommendations');;
+
+Route::post('/recommendations', [HomepageController::class, 'handleRecommendations']);
+
+Route::post('/getCategories', [CategoriesController::class, 'getCategories'])->name('getCategories');
 
 Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
 Route::middleware(['admin'])->prefix('admin')->group(function () {

@@ -38,7 +38,7 @@ class LoginController extends Controller
             Session::put('email', $user->email);
             Session::put('role', $user->role);
             if ($user->role == 'admin') return redirect()->route('users.index');
-            return redirect()->intended('/');
+            return redirect()->intended('/recommendations');
         } else {
             return redirect()->back()->withInput($request->only('email'))->withErrors(['password' => 'Mật khẩu sai']);
         }

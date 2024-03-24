@@ -5,7 +5,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/homePage.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/hearder-footer.css') }}">
 @endsection
 
 @section('content')
