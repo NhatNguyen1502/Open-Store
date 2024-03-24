@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -66,4 +67,10 @@ Route::post('/', [LoginController::class, 'signup']) ->name('user.signup');
 
 Route::get('/form', function () {
     return view('clients.loginForm');
+});
+
+
+Route::prefix('admin/contact')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+    Route::patch('/{id}', [ContactController::class, 'update'])->name('contact.update');
 });
