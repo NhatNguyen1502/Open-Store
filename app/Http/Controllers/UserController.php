@@ -15,11 +15,9 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->users->getAllUsers();
-        return view('admin.user' , ['users' =>$users]);
+        return view('admin.user' , ['users' => $users, 'UI'=> 'users']);
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -35,14 +33,13 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
+
     public function edit($id)
     {
         $user = $this->users::findOrFail($id);
         return view('admin.userEdit', compact('user'));
     }
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -62,9 +59,4 @@ class UserController extends Controller
         $user->update($data);
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }     
-
-    public function destroy(string $id)
-    {
-        
-    }
 }
