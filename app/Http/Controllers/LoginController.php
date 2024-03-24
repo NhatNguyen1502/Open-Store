@@ -9,8 +9,19 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {   
+
+    private $products;
+    public function __construct()
+    {   
+        $this->users = new Users();
+    }   
+
     public function showLogin(){
         return view('clients.loginForm');
+    }
+
+    public function showSignup(){
+        return view('clients.signup');
     }
     
     public function login( Request $request){
@@ -33,13 +44,31 @@ class LoginController extends Controller
         }
     }
 
+
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required|unique:users',
+            'name' => 'required',
+            'password' => 'required',
+        ]);
+        $data = $request;
+        $data->role = 'user';
+        $data->status = 'active';
+
+        $this->users->addUser($data);
+
+        return redirect()->route('user.showLogin')->with('success', 'User created successfully.');
+        return dd($request);
+    }
+
     public function logout(Request $request) {
         // Xóa session user_id và email
         Session::forget('user_id');
         Session::forget('email');
         return response()->json(['message' => 'Logout success'], 200);
     }
-    public function signup(){
-        return view('welcome');
-    }
+
+
 }

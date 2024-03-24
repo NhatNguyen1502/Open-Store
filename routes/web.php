@@ -34,8 +34,8 @@ Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
 
+Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
 Route::middleware(['admin'])->prefix('admin')->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::post('/users', [UserController::class, 'store'])->name('users.create');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
@@ -63,6 +63,13 @@ Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.ind
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 
 
+Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
+Route::get('/signupForm', [LoginController::class, 'showSignup']) ->name('user.showSignup');
+Route::post('/signupForm', [LoginController::class, 'signup']) ->name('user.signup');
+
+
+// Route::get('/form', function () {
+//     return view('clients.loginForm');
 Route::get('/login', [LoginController::class, 'showLogin']) ->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']) ->name('logout');
