@@ -11,9 +11,20 @@ class Contacts extends Model{
     protected $table = 'contacts';
     public $timestamps = false;
 
+    protected $fillable = [
+        'user_id',
+        'user_email',
+        'message',
+        'role',
+        'is_contact',
+    ];
+
     public function getAllContacts(){
         return DB::table('contacts')->get();
     }
+
+
+
 
     
 }

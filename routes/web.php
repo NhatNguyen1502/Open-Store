@@ -26,6 +26,7 @@ use App\Http\Controllers\ContactController;
 
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::post('/', [HomepageController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
