@@ -8,8 +8,8 @@
         @csrf
         <div class="modal-body">
             <div class="mb-3">
-                <label for="pName-inp" class="col-form-label">Category name: <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="name" id="pName-inp" required>
+                <label for="cateName" class="col-form-label">Category name: <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="name" id="cateName" required>
             </div>
         </div>
         <div class="modal-footer">
@@ -46,7 +46,6 @@
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </form>
-
             </td>
         </tr>
     @endforeach
@@ -60,18 +59,17 @@
                     <h5 class="modal-title" id="exampleModalLabel">Update Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="POST" action="{{ route('categories.update', ['id' => $category->id]) }}"
-                    enctype="multipart/form-data" id="updateCategoryForm">
+                <form method="POST" action="" enctype="multipart/form-data" id="updateCategoryForm">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="categoryId" class="col-form-label">ID: <span
+                            <label for="updateCategoryId" class="col-form-label">ID: <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="categoryId" id="updateCategoryId" disabled>
                         </div>
                         <div class="mb-3">
-                            <label for="categoryName" class="col-form-label">Category name: <span
+                            <label for="updateCategoryName" class="col-form-label">Category name: <span
                                     class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="categoryName" id="updateCategoryName" required>
                         </div>
@@ -87,27 +85,55 @@
 @endsection
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-edit')) {
-                let categoryId = e.target.value;
-                const action = '/admin/categories/' + categoryId;
+        document.addEventListener('click', async function(e) {
+            const target = e.target;
 
-                fetch(action)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(category => {
-                        document.getElementById('updateCategoryId').value = category.id;
-                        document.getElementById('updateCategoryName').value = category.name;
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                    });
+            if (target.classList.contains('btn-edit')) {
+                const categoryId = target.value;
+                const action = `/admin/categories/${categoryId}`;
+
+                try {
+                    const response = await axios.get(action);
+                    const category = response.data;
+                    fillAndShowModal(category);
+                } catch (error) {
+                    console.error('There was a problem with the Axios request:', error);
+                }
+            }
+
+            if (target.id == 'savechanges') {
+                e.preventDefault();
+                try {
+                    const form = document.getElementById('updateCategoryForm');
+                    const data = new FormData(form);
+                    const action = `${form.action}/${form.categoryId.value}`;
+                    await axios.post(action, data);
+                    hideModal();
+                    location.reload();
+                } catch (error) {
+                    console.error('There was a problem with the Axios request:', error);
+                }
             }
         });
+
+        function fillAndShowModal(category) {
+            fillModal(category);
+            showModal();
+        }
+
+        function fillModal(category) {
+            document.getElementById('updateCategoryId').value = category.id;
+            document.getElementById('updateCategoryName').value = category.name;
+        }
+
+        function showModal() {
+            $('#update_category').modal('show');
+        }
+
+        function hideModal() {
+            $('#update_category').modal('hide');
+        }
     </script>
 @endsection
