@@ -9,14 +9,14 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a href="{{ route('homepage') }}">
-                        <img src="{{ asset('assets/image/Logo.png') }}" alt="logo" class="ms-2" style="width: 100px;">
+                        <img src="{{ asset('assets/image/Logo.png') }}" alt="logo" class="ms-2"
+                            style="width: 100px;">
                     </a>
                 </nav>
             </div>
             <div class="col-5 d-sm-none d-flex justify-content-end align-items-center">
                 <button type="button" class="btn me-3 p-0" data-bs-toggle="modal" data-bs-target="#modal1"
-                    href="/login"><i class="fa-regular fa-circle-user fs-2 m-0"
-                        id="user-icon"></i></button>
+                    href="/login"><i class="fa-regular fa-circle-user fs-2 m-0" id="user-icon"></i></button>
                 <a href="{{ route('cart') }}" class="text-black">
                     <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative"id="cart-icon">
                         <span
@@ -26,7 +26,8 @@
                 </a>
             </div>
             <div class="col-sm-2 p-0 d-sm-block d-none">
-                <a href="{{ route('homepage') }}"><img src="{{ asset('assets/image/Logo.png') }}" alt="logo" class="w-75"></a>
+                <a href="{{ route('homepage') }}"><img src="{{ asset('assets/image/Logo.png') }}" alt="logo"
+                        class="w-75"></a>
             </div>
             <div class="col-sm-10 d-sm-block d-none ">
                 <div class="d-flex flex-column justify-content-center h-100">
@@ -36,23 +37,31 @@
                                 <input type="text" class="form-control" id="search-inp"
                                     placeholder="Search for anything" aria-label="Recipient's username"
                                     aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary bg-warning" type="button"
-                                    id="button-addon2" onclick="handleSearch()">
+                                <button class="btn btn-outline-secondary bg-warning" type="button" id="button-addon2"
+                                    onclick="handleSearch()">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="col-3 d-flex align-content-center justify-content-center">
-                            <a class="btn me-3 p-0" href="{{route('user.showLogin')}}">
-                                <i class="fa-regular fa-circle-user fs-2 m-0" id="user-icon"></i>
-                            </a>
-                            <a href="{{ route('cart') }}" class="text-black ms-5">
+                            <a href="{{ route('cart') }}" class="text-black ms-5 me-3 p-0">
                                 <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative"id="cart-icon">
                                     <span
                                         class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
                                         style="font-size: 10px !important;"></span>
                                 </i>
                             </a>
+                            @if (session('user_id'))
+                                <!-- Hiển thị button khi session user_id tồn tại -->
+                                <button type="button" class="btn me-3 p-0" onclick="handleLogout()">
+                                    <i class="fa-solid fa-right-from-bracket fs-3"></i>
+                                </button>
+                            @else
+                                <!-- Hiển thị thẻ a khi session user_id không tồn tại -->
+                                <a class="btn me-3 p-0" href="{{ route('login') }}">
+                                    <i class="fa-regular fa-circle-user fs-2 m-0" id="user-icon"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="row justify-content-start w-100">
@@ -131,3 +140,27 @@
         </div>
     </nav>
 </header>
+
+<script>
+    function handleLogout() {
+        // Gửi yêu cầu đến server để xóa session
+        fetch('{{ route('logout') }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Xóa user_id và email khỏi session trên client side
+                    sessionStorage.removeItem('user_id');
+                    sessionStorage.removeItem('email');
+                    // Hoặc nếu bạn muốn chuyển hướng người dùng sau khi đăng xuất
+                    window.location.href = '{{ route('login') }}';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    };
+</script>

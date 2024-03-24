@@ -13,7 +13,7 @@
 
 <div class="container">
    
-    @section('form')
+    @section('signup')
     <div class="signupForm justify-content-center" style='display: flex' id='signupForm'>
         <form class='border p-3' method='post' action="{{ route('user.signup') }}" style="width: 400px"> 
             @csrf   

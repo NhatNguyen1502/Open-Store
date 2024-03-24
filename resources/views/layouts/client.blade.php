@@ -16,7 +16,8 @@
 
 <body>
     @include('blocks.header')
-    @yield('form')
+    @yield('login')
+    @yield('signup')
     @yield('content')
     @include('blocks.footer')
     @section('sidebar')

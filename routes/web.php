@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -22,6 +24,7 @@ use App\Http\Controllers\OrderController;
 |
 */
 
+
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
@@ -31,10 +34,12 @@ Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
 
-Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-Route::post('/admin/users', [UserController::class, 'store'])->name('users.create');
-Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+Route::get('admin/users', [UserController::class, 'index'])->name('users.index');
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    Route::post('/users', [UserController::class, 'store'])->name('users.create');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+});
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
@@ -47,6 +52,13 @@ Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name(
 Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
 Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name('banners.delete');
 
+Route::prefix('/admin/categories')->group(function () {
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/', [CategoriesController::class,'store'])->name('categories.create');
+    Route::get('/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
+});
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 
@@ -58,4 +70,21 @@ Route::post('/signupForm', [LoginController::class, 'signup']) ->name('user.sign
 
 // Route::get('/form', function () {
 //     return view('clients.loginForm');
+Route::get('/login', [LoginController::class, 'showLogin']) ->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout']) ->name('logout');
+
+
+Route::get('/form', function () {
+    return view('clients.loginForm');
+});
+
+
+Route::prefix('admin/contact')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+    Route::patch('/{id}', [ContactController::class, 'update'])->name('contact.update');
+});
+// Route::group(['middleware' => 'guest'], function () {
+//     Route::get('/login-signup', [LoginController::class, 'showLogin']) ->name('login');
+//     Route::post('/login-signup', [LoginController::class, 'login']) ->name('signup');
 // });
