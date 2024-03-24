@@ -10,7 +10,8 @@
         <th>Phone number</th>
         <th>Address</th>
         <th>Payment method</th>
-        <th>status</th>
+        <th>Status</th>
+        <th>Delete</th>
     </tr>
 @endsection
 
@@ -44,6 +45,16 @@
                             {{ $item->status == 'canceled' ? 'checked' : '' }}>
                         <label class="btn btn-outline-primary" for="canceled-{{ $item->id }}">Canceled</label>
                     </div>
+                </form>
+            </td>
+            <td>
+                <form id="delete-form-{{ $item->id }}" action="{{ route('orders.delete', ['id' => $item->id]) }}"
+                    method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
                 </form>
             </td>
         </tr>

@@ -59,5 +59,10 @@ class UserController extends Controller
         $user = $this->users::findOrFail($id);
         $user->update($data);
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
-    }     
+    } 
+    
+    public function destroy(string $id){
+        $this->users->deleteUser($id);
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
 }

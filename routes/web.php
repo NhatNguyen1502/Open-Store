@@ -39,12 +39,14 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
     Route::post('/users', [UserController::class, 'store'])->name('users.create');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.delete');
 });
 
 Route::get('/admin/products', [ProductController::class, 'index'])->name('products.index');
 Route::post('/admin/products', [ProductController::class, 'store'])->name('products.create');
 Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('products.update');
+Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('products.delete');
 
 Route::get('/admin/banners', [BannerController::class, 'index'])->name('banners.index');
 Route::post('/admin/banners', [BannerController::class, 'store'])->name('banners.create');
@@ -61,6 +63,7 @@ Route::prefix('/admin/categories')->group(function () {
 });
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
+Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('orders.delete');
 
 
 Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');

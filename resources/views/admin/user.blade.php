@@ -4,7 +4,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">New user</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
-    <form action="{{route('users.create')}}" method="POST"> 
+    <form action="{{ route('users.create') }}" method="POST">
         @csrf
         <div class="modal-body">
             <div class="mb-3">
@@ -13,7 +13,8 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="col-form-label">Email: <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}}$" name="email" required>
+                <input type="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}}$" name="email"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="password" class="col-form-label"> Password: <span class="text-danger">*</span></label>
@@ -28,7 +29,7 @@
                 <div class="btn-group">
                     <input type="radio" class="btn-check" name="role" id="admin" value="admin">
                     <label class="btn btn-outline-primary" for="admin">Admin</label>
-                    <input type="radio" class="btn-check"  name="role" id="user" value="user">
+                    <input type="radio" class="btn-check" name="role" id="user" value="user">
                     <label class="btn btn-outline-primary" for="user">User</label>
                 </div>
             </div>
@@ -63,17 +64,32 @@
 
 @section('tbody')
     @foreach ($users as $key => $item)
-        <tr class="item-id-{{$item->id}}">
-            <td>{{$item->id}}</td>
-            <td>{{$item->name}}</td>
-            <td>{{$item->email}}</td>
-            <td>{{$item->phone_number}}</td>
-            <td>{{$item->role}}</td>
-            <td>{{$item->status}}</td>
+        <tr class="item-id-{{ $item->id }}">
+            <td>{{ $item->id }}</td>
+            <td>{{ $item->name }}</td>
+            <td>{{ $item->email }}</td>
+            <td>{{ $item->phone_number }}</td>
+            <td>{{ $item->role }}</td>
+            <td>{{ $item->status }}</td>
             <td>
-                <button class="btn btn-primary"><a class="nav-link text-light" href="{{route('users.edit', ['id' => $item->id])}}">Update</a></button>                
+                <div class="btn-group gap-1" role="group" aria-label="Button group">
+                    <button class="btn btn-primary rounded">
+                        <a class="nav-link text-light" href="{{ route('users.edit', ['id' => $item->id]) }}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                    </button>
+
+                    <form id="delete-form-{{ $item->id }}" action="{{ route('users.delete', ['id' => $item->id]) }}"
+                        method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+
             </td>
         </tr>
     @endforeach
-
 @endsection
