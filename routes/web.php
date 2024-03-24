@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\BannerController;
@@ -50,6 +51,13 @@ Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name(
 Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('banners.update');
 Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name('banners.delete');
 
+Route::prefix('/admin/categories')->group(function () {
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/', [CategoriesController::class,'store'])->name('categories.create');
+    Route::get('/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
+    Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
+});
 Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 
