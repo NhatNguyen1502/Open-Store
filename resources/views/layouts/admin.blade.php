@@ -42,6 +42,7 @@
                 <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{ route('orders.index') }}">Orders</a></label>
                 <input type="radio" class="btn-check" name="management-options" {{ $UI == 'banners' ? 'checked' : '' }}>
                 <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{ route('banners.index') }}">Banners</a></label>
+                <input type="radio" class="btn-check" name="management-options" {{ $UI == 'categories' ? 'checked' : '' }}>
                 <label class="btn btn-outline-warning w-100" for="product-option"><a class="nav-link" href="{{route('categories.index')}}">Categories</a></label>
             </div>
             <div class="col-11">
