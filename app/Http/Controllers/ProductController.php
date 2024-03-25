@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Products;
+use App\Models\Category;
 use Illuminate\Support\Str;
 
 
@@ -28,7 +29,16 @@ class ProductController extends Controller
     public function showProducts()
     {
         $products = $this->products->getAllProducts();
-        return view('clients.product', compact('products'));
+        $categories = Category:: get();
+        return view('clients.product', compact('products','categories'));
+    }
+
+    public function showCategory($category_id)
+    {
+        $products = $this->products->showCategory($category_id);        
+        $categories = Category:: get();
+        return view('clients.product', compact('products','categories'));
+        return dd($products, $categories);
     }
 
     public function showCart($userId = 1)
