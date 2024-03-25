@@ -8,13 +8,15 @@
 @endsection
 
 @section('content')
-<div class="container-sm bg-white">
+<div class="container-sm bg-white"> 
     <div class="row justify-content-center">
       <div class="col-2">
         <h2 class="fw-bold mt-3 ">Filters</h2>
         <hr>
         <ul class="list-unstyled">
-          <li class="mb-3"><a href="#" class="text-decoration-none  " onclick="filterByCategory('t-shirts')">T-Shirt</a></li>
+          @foreach( $categories as $category)
+            <li class="mb-3"><a href="{{ route('showCategory', ['category_id' => $category->id]) }}" class="text-decoration-none  " onclick="filterByCategory('t-shirts')">{{ $category->name }}</a></li>
+          @endforeach
         </ul>
         <hr>
       </div>
