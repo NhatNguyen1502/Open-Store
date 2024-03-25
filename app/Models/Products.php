@@ -13,10 +13,13 @@ class Products extends Model
     public $timestamps = false;
     protected $fillable = [
         'name',
-        'email',
-        'role',
+        'price',
+        'category_id',
+        'discount',
+        'stock',
+        'image',
+        'description',
         'status',
-        'phone_number',
     ];
 
     public function category()

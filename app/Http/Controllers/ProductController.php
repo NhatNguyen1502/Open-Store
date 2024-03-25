@@ -49,7 +49,6 @@ class ProductController extends Controller
             ->select('products.*', 'carts.quantity')
             ->get();
         return view('clients.cart', compact('cartProducts'));
-        // return dd($cartProducts);
     }
 
 
@@ -61,12 +60,8 @@ class ProductController extends Controller
             ->select('products.*', 'carts.quantity')
             ->get();
         return view('clients.checkout', compact('cartProducts'));
-        // return dd($cartProducts);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $imageName = Str::uuid() . '.' . $request->image->extension();
