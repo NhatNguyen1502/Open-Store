@@ -29,6 +29,7 @@ Route::post('/', [HomepageController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/products/{category_id}', [ProductController::class, 'showCategory'])->name('showCategory');
+Route::get('/detail/{product_id}', [ProductController::class, 'showDetail'])->name('showDetail');
 Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
 Route::get('/about', function () {

@@ -24,10 +24,12 @@
         <div class="row" id="body">
             @foreach ($products as $product)
             <div class="col-sm-3 col-6" id="item-1" onmouseover="addHoverEffect(this)" onmouseout="removeHoverEffect(this)">
-                <img class="mb-3 responsive-image w-100" style=' height: 232px' src="{{ $product->image }}" alt="">
-                <p class="mb-1 font-weight-bold title text-center">{{ $product->name }}</p>
-                <span class="start item-start">★★★★★</span>
-                <p class="font-weight-bold text-center">{{ $product->price }}</p>
+              <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
+                  <img class="mb-3 responsive-image w-100" style=' height: 232px' src="{{ asset('storage/images/' .$product->image) }}" alt="">
+                  <p class="mb-1 font-weight-bold title text-center">{{ $product->name }}</p>
+                  <span class="start item-start">★★★★★</span>
+                  <p class="font-weight-bold text-center">{{ $product->price }}</p>
+              </a>
             </div>
             @endforeach
         </div>

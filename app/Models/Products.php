@@ -33,6 +33,15 @@ class Products extends Model
         return $products;
     }
 
+    public function getDetail($product_id)
+    {
+        $product = DB::table('products')->where('id', $product_id)->first();
+        return $product;
+    }
+    
+
+
+
     public function addProduct($data)
     {
         $product = new Products();
