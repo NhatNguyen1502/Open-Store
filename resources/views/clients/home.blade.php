@@ -58,9 +58,43 @@
             <img class="logo" src="{{ asset('assets/image/prada-logo-1 1.png') }}" alt="image">
         </div>
     </div>
+    <div id="banner" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            @foreach ($banners as $key => $banner)
+                @if ($banner->status === 'active')
+                    <button type="button" data-bs-target="#banner" data-bs-slide-to="{{ $key }}"
+                        class="{{ $key === 0 ? 'active' : '' }}" aria-current="{{ $key === 0 ? 'true' : 'false' }}"
+                        aria-label="Slide {{ $key + 1 }}"></button>
+                @endif
+            @endforeach
+        </div>
+
+        <div class="carousel-inner">
+            @foreach ($banners as $key => $banner)
+                @if ($banner->status === 'active')
+                    <div class="carousel-item {{ $key === 0 ? 'active' : '' }}" data-bs-interval="10000">
+                        <img src="{{ asset('banner_images/' . $banner->image) }}" class="d-block w-100"
+                            alt="{{ $banner->name }}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ $banner->name }}</h5>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#banner" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#banner" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     <div class="container">
         @isset($recommendProducts)
-        <hr>
+            <hr>
             <section class="recommend-section">
                 <h2 class="text-center fw-bold">RECOMMEND FOR YOU</h2>
                 <div class="row">

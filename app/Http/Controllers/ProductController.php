@@ -38,9 +38,7 @@ class ProductController extends Controller
         $product = $this->products->getDetail($product_id);
         $categories = Category:: get();
         return view('clients.detail', compact('product','categories'));
-        // return view('clients.detail', $product);
-
-        // return dd($product, $categories);
+   
     }
 
     public function showCategory($category_id)
@@ -49,6 +47,7 @@ class ProductController extends Controller
         $categories = Category:: get();
         return view('clients.product', compact('products','categories'));
         // return dd($products, $categories);
+        return dd($products, $categories);
     }
 
     public function showCart($userId = 1)

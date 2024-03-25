@@ -29,9 +29,7 @@ Route::post('/', [HomepageController::class, 'contact'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/products/{category_id}', [ProductController::class, 'showCategory'])->name('showCategory');
-
 Route::get('/detail/{product_id}', [ProductController::class, 'showDetail'])->name('showDetail');
-
 Route::get('/cart', [ProductController::class, 'showCart'])->name('cart');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
 Route::get('/about', function () {
@@ -66,7 +64,7 @@ Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name
 
 Route::prefix('/admin/categories')->group(function () {
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.index');
-    Route::post('/', [CategoriesController::class,'store'])->name('categories.create');
+    Route::post('/', [CategoriesController::class, 'store'])->name('categories.create');
     Route::get('/{id}', [CategoriesController::class, 'edit'])->name('categories.edit');
     Route::put('/{id}', [CategoriesController::class, 'update'])->name('categories.update');
     Route::delete('/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
@@ -76,16 +74,16 @@ Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('or
 Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('orders.delete');
 
 
-Route::get('/loginForm', [LoginController::class, 'showLogin']) ->name('user.showLogin');
-Route::get('/signupForm', [LoginController::class, 'showSignup']) ->name('user.showSignup');
-Route::post('/signupForm', [LoginController::class, 'signup']) ->name('user.signup');
+Route::get('/loginForm', [LoginController::class, 'showLogin'])->name('user.showLogin');
+Route::get('/signupForm', [LoginController::class, 'showSignup'])->name('user.showSignup');
+Route::post('/signupForm', [LoginController::class, 'signup'])->name('user.signup');
 
 
 // Route::get('/form', function () {
 //     return view('clients.loginForm');
-Route::get('/login', [LoginController::class, 'showLogin']) ->name('login');
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']) ->name('logout');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 Route::get('/form', function () {

@@ -25,6 +25,7 @@ class BannerController extends Controller
         return view('admin.banner', ['banners' => $banners, 'UI'=> 'banners']);
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
