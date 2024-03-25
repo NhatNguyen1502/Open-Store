@@ -17,7 +17,8 @@ class ContactController extends Controller
     {
         $contacts = DB::table('contacts')
             ->join('users', 'contacts.user_id', '=', 'users.id')
-            ->get();
+            ->select('contacts.*', 'users.name', 'users.email')
+            ->get(); 
         return view('admin.contact', ['contacts' => $contacts, 'UI' => 'contacts']);
     }
 

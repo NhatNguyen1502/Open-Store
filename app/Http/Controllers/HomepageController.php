@@ -35,8 +35,12 @@ class HomepageController extends Controller
 
     public function handleRecommendations(Request $request) {
         $data = $request->category;
+        if($data) {
+            $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();   
+        } else {
+            $recommendProducts = null;
+        }
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
-        $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();   
         $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
         return view('clients.home', compact('recommendProducts', 'products', 'saleProducts',));
     }
