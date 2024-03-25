@@ -59,7 +59,6 @@ class ProductController extends Controller
         $products = $this->products->showCategory($category_id);        
         $categories = Category:: get();
         return view('clients.product', compact('products','categories'));
-        // return dd($products, $categories);
         return dd($products, $categories);
     }
 
@@ -77,14 +76,19 @@ class ProductController extends Controller
     
 
 
-    public function showCheckout($userId = 1)
+    public function showCheckout()
     {
-        $cartProducts = DB::table('carts')
-            ->where('user_id', $userId)
-            ->join('products', 'carts.product_id', '=', 'products.id')
-            ->select('products.*', 'carts.quantity')
-            ->get();
-        return view('clients.checkout', compact('cartProducts'));
+        if (session()->has('user_id')) {
+            $user_id = session()->get('user_id');
+            $user = DB::table('users')->where('id', $user_id)->select('name', 'email', 'phone_number',)->first();
+            $cartProducts = DB::table('carts')
+                ->where('user_id', $user_id)
+                ->join('products', 'carts.product_id', '=', 'products.id')
+                ->select('products.*', 'carts.quantity')
+                ->get();
+            return view('clients.checkout', compact('cartProducts', 'user'));
+        }
+        return redirect()->route('homepage');                                                                               
     }
 
     public function store(Request $request)
