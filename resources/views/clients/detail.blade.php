@@ -30,25 +30,26 @@
                     </div>
                     <p class="sentence">{{ $product->description }}</p>
                     <hr>
-                    <div class="row">
-                        <div class="col-sm-3 col-6">
-                            <p class="sentence ">Choose Size</p>
-                            <div class="sizeOption">
-                                <select name="size" id="sizeOptions">
-                                    <option value="empty">Select size</option>
-                                    {{ $product->name }};
-                                </select>
+                    <form action="{{ route('addToCart', ['product_id' => $product->id]) }}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-sm-3 col-6">
+                                <p class="sentence ">Choose Size</p>
+                                <div class="sizeOption">
+                                    <select name="size" id="sizeOptions">
+                                        <option value="empty">Select size</option>
+                                        {{ $product->name }};
+                                    </select>
+                                </div>
                             </div>
+                            <div class="col-sm-2 col-6">
+                                <p class="sentence qty">Quantity</p>
+                                <input aria-label="quantity" class="input-qty" max="{{ $product->stock }}" min="1" name="quantity" type="number" value="1">
+                            </div> 
                         </div>
-                        <div class="col-sm-2 col-6">
-                            <p class="sentence qty">Quantity</p>
-                            <input aria-label="quantity" class="input-qty" max="${product.stock}" min="1" name="" type="number" value="1">
-                        </div> 
-                    </div>
-                    <hr>
-                    <div class="addCart">
-                        <button type="button" class="btn btn-primary addToCart" onclick = "AddToCart()">Add to cart</button>
-                    </div>
+                        <hr>
+                        <button type="submit" class="btn btn-primary addToCart">Add to cart</button>
+                    </form>
                 </div>
             </div>
         </div>

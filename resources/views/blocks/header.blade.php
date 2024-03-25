@@ -18,13 +18,19 @@
             <div class="col-5 d-sm-none d-flex justify-content-end align-items-center">
                 <button type="button" class="btn me-3 p-0" data-bs-toggle="modal" data-bs-target="#modal1"
                     href="/login"><i class="fa-regular fa-circle-user fs-2 m-0" id="user-icon"></i></button>
-                <a href="{{ route('cart') }}" class="text-black">
-                    <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative"id="cart-icon">
-                        <span
-                            class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
-                            style="font-size: 10px !important;"></span>
-                    </i>
-                </a>
+                    @if (session('user_id'))
+                    <a href="{{ route('cart', ['user_id' => 1]) }}" class="text-black">
+                        <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
+                            <span class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2" style="font-size: 10px !important;"></span>
+                        </i>
+                    </a>
+                    @else
+                    <a href="#" class="text-black">
+                        <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
+                            <span class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2" style="font-size: 10px !important;"></span>
+                        </i>
+                    </a>
+                    @endif
             </div>
             <div class="col-sm-2 p-0 d-sm-block d-none">
                 <a href="{{ route('homepage') }}"><img src="{{ asset('assets/image/Logo.png') }}" alt="logo"
@@ -45,13 +51,19 @@
                             </div>
                         </div>
                         <div class="col-3 d-flex align-content-center justify-content-center">
-                            <a href="{{ route('cart') }}" class="text-black ms-5 me-3 p-0">
-                                <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative"id="cart-icon">
-                                    <span
-                                        class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
-                                        style="font-size: 10px !important;"></span>
-                                </i>
-                            </a>
+                        @if (session('user_id'))
+                        <a href="{{ route('cart', ['user_id' => session('user_id') ]) }}" class="text-black">
+                            <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
+                                <span class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2" style="font-size: 10px !important;"></span>
+                            </i>
+                        </a>
+                        @else
+                        <a href="#" class="text-black">
+                            <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
+                                <span class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2" style="font-size: 10px !important;"></span>
+                            </i>
+                        </a>
+                        @endif
                             @if (session('user_id'))
                                 <!-- Hiển thị button khi session user_id tồn tại -->
                                 <button type="button" class="btn me-3 p-0" onclick="handleLogout()">
