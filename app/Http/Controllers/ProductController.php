@@ -42,8 +42,22 @@ class ProductController extends Controller
     public function showDetail($product_id)
     {
         $product = $this->products->getDetail($product_id);
-        $categories = Category::get();
-        return view('clients.detail', compact('product', 'categories'));
+        $categories = Category:: get();
+        return view('clients.detail', compact('product','categories'));
+        
+    }
+
+    public function addToCart( Request $request, $product_id)
+    {
+        $user_id = session('user_id');
+        $quantity = $request->quantity;
+        DB::table('carts')->insert([
+            'product_id' => $product_id,
+            'user_id' => $user_id,
+            'quantity' => $quantity,    
+        ]);
+        return redirect()->route('homepage')->with('success', 'Product is added to cart successfully.');
+        
     }
 
     public function showCategory($category_id)
@@ -55,15 +69,18 @@ class ProductController extends Controller
         return dd($products, $categories);
     }
 
-    public function showCart($userId = 1)
+    public function showCart($user_id)
     {
         $cartProducts = DB::table('carts')
-            ->where('user_id', $userId)
+            ->where('user_id', $user_id)
             ->join('products', 'carts.product_id', '=', 'products.id')
-            ->select('products.*', 'carts.quantity')
+            ->select('products.*', DB::raw('SUM(carts.quantity) as total_quantity'))
+            ->groupBy('products.id')
             ->get();
         return view('clients.cart', compact('cartProducts'));
     }
+    
+    
 
 
     public function showCheckout($userId = 1)

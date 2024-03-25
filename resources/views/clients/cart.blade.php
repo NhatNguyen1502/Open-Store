@@ -16,12 +16,12 @@
       @foreach( $cartProducts as $product)
       <div class="row mt-4 p-4">
         <div class="col-5">
-          <img class='w-100 h-100' src="{{ $product->image }}" alt="T-shirt">
+          <img class='w-100 h-100' src="{{ asset('storage/images/' .$product->image) }}" >
         </div>
         <div class="col-4">
         <h3>{{ $product->name }}</h3> 
           <p> Size: 1</p>                  
-          <p>Color: Red</p>                  
+          <p>Quantity: {{ $product->total_quantity }}</p>                  
           <p>{{ $product->price }}</p>
         </div>
         <div class="col-3 d-flex flex-column">
