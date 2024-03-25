@@ -99,7 +99,7 @@
                 <h2 class="text-center fw-bold">RECOMMEND FOR YOU</h2>
                 <div class="row">
                     @foreach ($recommendProducts as $product)
-                        <div class="col-sm-3 col-12 hoverProducts text-center"">
+                        <div class="col-sm-3 col-12 hoverProducts text-center">
                             <div class="container-image">
                                 <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
                             </div>
@@ -124,8 +124,27 @@
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
                             <span class="stock">{{ $product->stock }}</span>
                             <p class="fw-bold fs-4">{{ $product->price }}</p>
+                            @if (session()->has('user_id'))
+                                <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
+                                @if ($isInWishlist)
+                                    <a
+                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
+                                        class="nav-link">
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ route('user.showLogin') }}" class="nav-link">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </a>
+                            @endif
                         </div>
                     @endforeach
+
                 </div>
 
             </div>
@@ -138,11 +157,30 @@
                     @foreach ($products as $product)
                         <div class="col-sm-3 col-12 hoverProducts text-center">
                             <div class="container-image">
-                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
+                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}"
+                                    alt="image">
                             </div>
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
                             <span class="stock">{{ $product->stock }}</span>
                             <p class="fw-bold fs-4">{{ $product->price }}</p>
+                            @if (session()->has('user_id'))
+                                <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
+                                @if ($isInWishlist)
+                                    <a
+                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
+                                        class="nav-link">
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ route('user.showLogin') }}" class="nav-link">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -150,5 +188,5 @@
             </div>
         </section>
     </div>
-    </div>
+
 @endsection

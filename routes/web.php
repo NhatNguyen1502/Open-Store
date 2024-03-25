@@ -26,6 +26,8 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 Route::post('/', [HomepageController::class, 'contact'])->name('contact');
+Route::get('/user/product/{product_id}/{user_id}', [HomepageController::class, 'addWishlist'])->name('addWishlist');
+Route::get('/user/product/{product_id}/{user_id}/delete', [HomepageController::class, 'deleteWishlist'])->name('deleteWishlist');
 
 Route::get('/products', [ProductController::class, 'showProducts'])->name('showProducts');
 Route::get('/products/{category_id}', [ProductController::class, 'showCategory'])->name('showCategory');
