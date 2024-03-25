@@ -33,12 +33,22 @@ class ProductController extends Controller
         return view('clients.product', compact('products','categories'));
     }
 
+    public function showDetail($product_id)
+    {
+        $product = $this->products->getDetail($product_id);
+        $categories = Category:: get();
+        return view('clients.detail', compact('product','categories'));
+        // return view('clients.detail', $product);
+
+        // return dd($product, $categories);
+    }
+
     public function showCategory($category_id)
     {
         $products = $this->products->showCategory($category_id);        
         $categories = Category:: get();
         return view('clients.product', compact('products','categories'));
-        return dd($products, $categories);
+        // return dd($products, $categories);
     }
 
     public function showCart($userId = 1)
