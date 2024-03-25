@@ -69,14 +69,7 @@
                         <div class="col-9 mt-2">
                             <ul class="menu justify-content-center">
                                 <li><a href="{{ route('homepage') }}">Home</a></li>
-                                <li><a href="#">Category<span class="arrow">&#129175;</span></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="category.html"
-                                                onclick="window.localStorage.setItem('category','t-shirts')">Bracelets</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="{{ route('showProducts') }}">Products</a></li>
+                                <li><a href="{{ route('showProducts') }}">Category</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
                         </div>

@@ -52,4 +52,11 @@ class Products extends Model
         DB::table('products')->where('id', $id)->delete();
     }
 
+    public function showCategory($category_id)
+    {
+        $products = DB::table('products')->where('category_id', $category_id)->get();
+        return $products;
+    }
+    
+
 }
