@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use DB;
 use App\Models\Products;
 use App\Models\Contacts;
 use App\Models\Category;
+use App\Models\Banners;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -24,24 +26,28 @@ class HomepageController extends Controller
     public function index()
     {
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
-        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
-        return view('clients.home', compact('products', 'saleProducts'));
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0)->get();
+        $banners = new Banners();
+        $banners = $banners->getAllBanners();
+        return view('clients.home', compact('products', 'saleProducts', 'banners'));
     }
 
-    public function showRecommendations() {
+    public function showRecommendations()
+    {
         $categories = Category::all();
         return view('clients.recommendations', compact('categories'));
     }
 
-    public function handleRecommendations(Request $request) {
+    public function handleRecommendations(Request $request)
+    {
         $data = $request->category;
-        if($data) {
-            $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();   
+        if ($data) {
+            $recommendProducts = Products::whereIn('category_id', $data)->where('status', 'active')->where('stock', '>', 0)->get();
         } else {
             $recommendProducts = null;
         }
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
-        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0) ->get();
+        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0)->get();
         return view('clients.home', compact('recommendProducts', 'products', 'saleProducts',));
     }
 }
