@@ -28,5 +28,4 @@ class ContactController extends Controller
         $contact->save();
         return redirect()->route('contact.index')->with('success', 'Contact updated successfully');
     }
-
 }
