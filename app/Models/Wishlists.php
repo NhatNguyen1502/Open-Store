@@ -14,7 +14,7 @@ class Wishlists extends Model
 
     public function getWishlist($user_id)
     {
-        return $this->select('product_id')
+        return $this->select('product_id', 'user_id')
             ->where('user_id', $user_id)
             ->get();
     }

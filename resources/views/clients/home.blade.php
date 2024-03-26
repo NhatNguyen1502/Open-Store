@@ -187,6 +187,65 @@
 
             </div>
         </section>
+
+        <section class="favourite">
+            <!-- Button trigger modal -->
+
+
+
+            <!-- Modal -->
+            <div class="modal fade modal-xl" id="favourite" tabindex="-1" aria-labelledby="favouriteLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="favouriteLabel">Favorite product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                @php
+                                    $hasProduct = false;
+                                @endphp
+                                @foreach ($wishlists as $wishlist)
+                                    @if ($wishlist->user_id == session('user_id') && $wishlist->product_id)
+                                        @foreach ($products as $product)
+                                            @if ($product->id == $wishlist->product_id)
+                                                @php
+                                                    $hasProduct = true;
+                                                @endphp
+                                                <div class="col-3 hoverProducts text-center">
+                                                    <div class="container-image">
+                                                        <img class="image"
+                                                            src="{{ asset('/storage/images/' . $product->image) }}"
+                                                            alt="image">
+                                                    </div>
+                                                    <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                                    <span class="stock">{{ $product->stock }}</span>
+                                                    <p class="fw-bold fs-4">{{ $product->price }}</p>
+                                                    <a
+                                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                                @if (!$hasProduct)
+                                    <p>No product</p>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </div>
 
 @endsection
