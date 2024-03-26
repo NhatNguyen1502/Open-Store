@@ -190,9 +190,10 @@
 
         <section class="favourite">
             <!-- Button trigger modal -->
-
-
-
+            <button id="fixed-button" type="button" class="btn btn-danger me-3" data-bs-toggle="modal"
+                data-bs-target="#favourite">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
             <!-- Modal -->
             <div class="modal fade modal-xl" id="favourite" tabindex="-1" aria-labelledby="favouriteLabel"
                 aria-hidden="true">
@@ -208,32 +209,36 @@
                                 @php
                                     $hasProduct = false;
                                 @endphp
-                                @foreach ($wishlists as $wishlist)
-                                    @if ($wishlist->user_id == session('user_id') && $wishlist->product_id)
-                                        @foreach ($products as $product)
-                                            @if ($product->id == $wishlist->product_id)
-                                                @php
-                                                    $hasProduct = true;
-                                                @endphp
-                                                <div class="col-3 hoverProducts text-center">
-                                                    <div class="container-image">
-                                                        <img class="image"
-                                                            src="{{ asset('/storage/images/' . $product->image) }}"
-                                                            alt="image">
+                                @if ($wishlists)
+                                    @foreach ($wishlists as $wishlist)
+                                        @if ($wishlist->user_id == session('user_id') && $wishlist->product_id)
+                                            @foreach ($products as $product)
+                                                @if ($product->id == $wishlist->product_id)
+                                                    @php
+                                                        $hasProduct = true;
+                                                    @endphp
+                                                    <div class="col-3 hoverProducts text-center">
+                                                        <div class="container-image">
+                                                            <img class="image"
+                                                                src="{{ asset('/storage/images/' . $product->image) }}"
+                                                                alt="image">
+                                                        </div>
+                                                        <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                                        <span class="stock">{{ $product->stock }}</span>
+                                                        <p class="fw-bold fs-4">{{ $product->price }}</p>
+                                                        <a
+                                                            href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        </a>
                                                     </div>
-                                                    <p class="fw-bold mt-2">{{ $product->name }}</p>
-                                                    <span class="stock">{{ $product->stock }}</span>
-                                                    <p class="fw-bold fs-4">{{ $product->price }}</p>
-                                                    <a
-                                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
-                                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
-                                            @endif
-                                        @endforeach
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    @if (!$hasProduct)
+                                        <p>No product</p>
                                     @endif
-                                @endforeach
-                                @if (!$hasProduct)
+                                @else
                                     <p>No product</p>
                                 @endif
                             </div>

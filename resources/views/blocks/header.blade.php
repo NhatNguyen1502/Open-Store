@@ -56,10 +56,6 @@
                         </div>
                         <div class="col-3 d-flex align-content-center justify-content-center">
                             @if (session('user_id'))
-                                <button id="fixed-button" type="button" class="btn btn-danger me-3" data-bs-toggle="modal"
-                                    data-bs-target="#favourite">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </button>
                                 <a href="{{ route('cart', ['user_id' => session('user_id')]) }}" class="text-black">
                                     <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
                                         <span
