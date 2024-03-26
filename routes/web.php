@@ -33,6 +33,8 @@ Route::get('/detail/{product_id}', [ProductController::class, 'showDetail'])->na
 Route::post('/addToCart/{product_id}', [ProductController::class, 'addToCart'])->name('addToCart');
 Route::get('/cart/{user_id}', [ProductController::class, 'showCart'])->name('cart');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
+Route::post('/checkout', [OrderController::class, 'store']);
+
 Route::get('/about', function () {
     return view('clients.aboutUs');
 })->name('aboutUs');
@@ -74,7 +76,6 @@ Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.ind
 Route::patch('/admin/orders/{id}', [OrderController::class, 'update'])->name('orders.update');
 Route::delete('/admin/orders/{id}', [OrderController::class, 'destroy'])->name('orders.delete');
 
-
 Route::get('/loginForm', [LoginController::class, 'showLogin'])->name('user.showLogin');
 Route::get('/signupForm', [LoginController::class, 'showSignup'])->name('user.showSignup');
 Route::post('/signupForm', [LoginController::class, 'signup'])->name('user.signup');
@@ -96,6 +97,7 @@ Route::prefix('admin/contact')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('contact.index');
     Route::patch('/{id}', [ContactController::class, 'update'])->name('contact.update');
 });
+
 // Route::group(['middleware' => 'guest'], function () {
 //     Route::get('/login-signup', [LoginController::class, 'showLogin']) ->name('login');
 //     Route::post('/login-signup', [LoginController::class, 'login']) ->name('signup');
