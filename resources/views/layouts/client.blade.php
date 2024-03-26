@@ -11,7 +11,7 @@
     <script src=" https://kit.fontawesome.com/e1aaf64c7e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    @yield('css');
+    @yield('css')
 </head>
 
 <body>
