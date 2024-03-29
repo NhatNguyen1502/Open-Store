@@ -67,6 +67,8 @@ class LoginController extends Controller
         // Xóa session user_id và email
         Session::forget('user_id');
         Session::forget('email');
+        Session::forget('role');
+
         return response()->json(['message' => 'Logout success'], 200);
     }
 
