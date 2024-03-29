@@ -52,9 +52,11 @@ class HomepageController extends Controller
         } else {
             $recommendProducts = null;
         }
+        $banners = new Banners();
+        $banners = $banners->getAllBanners();
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
         $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0)->get();
-        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts',));
+        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts','banners'));
     }
 
     public function addWishlist($product_id, $user_id)
