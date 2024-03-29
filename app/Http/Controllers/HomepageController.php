@@ -56,7 +56,12 @@ class HomepageController extends Controller
         $banners = $banners->getAllBanners();
         $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
         $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0)->get();
-        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts','banners'));
+        $wishlists = null;
+        if (session('user_id')) {
+            $wishlistModel = new Wishlists();
+            $wishlists = $wishlistModel->getWishlist(session('user_id'));
+        }
+        return view('clients.home', compact('recommendProducts', 'products', 'saleProducts', 'banners', 'wishlists'));
     }
 
     public function addWishlist($product_id, $user_id)
@@ -68,7 +73,8 @@ class HomepageController extends Controller
         return redirect()->route('homepage');
     }
 
-    public function deleteWishlist($product_id, $user_id){
+    public function deleteWishlist($product_id, $user_id)
+    {
         Wishlists::where('product_id', $product_id)->where('user_id', $user_id)->delete();
         return redirect()->route('homepage');
     }
