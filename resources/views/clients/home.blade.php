@@ -97,15 +97,17 @@
             <hr>
             <section class="recommend-section">
                 <h2 class="text-center fw-bold">RECOMMEND FOR YOU</h2>
-                <div class="row">
+                <div class="row pt-3">
                     @foreach ($recommendProducts as $product)
-                        <div class="col-sm-3 col-12 hoverProducts text-center"">
+                        <div class="col-sm-3 col-12 hoverProducts text-center">
+                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
                             <div class="container-image">
                                 <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
                             </div>
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="stock">{{ $product->stock }}</span>
-                            <p class="fw-bold fs-4">{{ $product->price }}</p>
+                            <span class="price text-danger" style='text-decoration: line-through'>{{ $product->price }}$</span>
+                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
+                        </a>
                         </div>
                     @endforeach
                 </div>
@@ -114,17 +116,19 @@
         <hr>
         <section class="discount-section">
             <h2 class="fw-bold text-center mt-4">SALE PRODUCT</h2>
-            <div class="container">
+            <div class="container pt-3">
                 <div class="row">
                     @foreach ($saleProducts as $product)
-                        <div class="col-sm-3 col-12 hoverProducts text-center">
+                    <div class="col-sm-3 col-12 hoverProducts text-center">
+                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
                             <div class="container-image">
                                 <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
                             </div>
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="stock">{{ $product->stock }}</span>
-                            <p class="fw-bold fs-4">{{ $product->price }}</p>
-                        </div>
+                            <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
+                        </a>
+                    </div>
                     @endforeach
                 </div>
 
@@ -134,15 +138,17 @@
         <section class="products-section">
             <h2 class="fw-bold text-center mt-4">ALL PRODUCTS</h2>
             <div class="container">
-                <div class="row">
+                <div class="row pt-3">
                     @foreach ($products as $product)
                         <div class="col-sm-3 col-12 hoverProducts text-center">
+                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
                             <div class="container-image">
                                 <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
                             </div>
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="stock">{{ $product->stock }}</span>
-                            <p class="fw-bold fs-4">{{ $product->price }}</p>
+                            <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
+                        </a>
                         </div>
                     @endforeach
                 </div>
