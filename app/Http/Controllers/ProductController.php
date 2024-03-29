@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Products;
 use App\Models\Category;
+use App\Models\Wishlists;
 use Illuminate\Support\Str;
 
 
@@ -29,8 +30,13 @@ class ProductController extends Controller
     public function showProducts()
     {
         $products = $this->products->getAllProducts();
-        $categories = Category:: get();
-        return view('clients.product', compact('products','categories'));
+        $categories = Category::get();
+        $wishlists = null;
+        if (session('user_id')) {
+            $wishlistModel = new Wishlists();
+            $wishlists = $wishlistModel->getWishlist(session('user_id'));
+        }
+        return view('clients.product', compact('products', 'categories', 'wishlists'));
     }
 
     public function showDetail($product_id)
@@ -59,7 +65,7 @@ class ProductController extends Controller
         $products = $this->products->showCategory($category_id);        
         $categories = Category:: get();
         return view('clients.product', compact('products','categories'));
-        return dd($products, $categories);
+        // return dd($products, $categories);
     }
 
     public function showCart($user_id)

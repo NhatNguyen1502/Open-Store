@@ -20,7 +20,6 @@ class CheckAdminRole
             // Nếu là admin, tiếp tục vào route tiếp theo
             return $next($request);
         }
-
         // Nếu không phải là admin, chuyển hướng đến trang đăng nhập
         return redirect('/login');
     }

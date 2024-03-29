@@ -128,8 +128,29 @@
                             <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
                             <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
                         </a>
+      
+                        @if (session()->has('user_id'))
+                            <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
+                            @if ($isInWishlist)
+                                <a
+                                    href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
+                            @else
+                                <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
+                                    class="nav-link">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </a>
+                            @endif
+                        @else
+                            <a href="{{ route('user.showLogin') }}" class="nav-link">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                            </a>
+                        @endif
                     </div>
+                
                     @endforeach
+
                 </div>
 
             </div>
@@ -143,18 +164,102 @@
                         <div class="col-sm-3 col-12 hoverProducts text-center">
                         <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
                             <div class="container-image">
-                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
+                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}"
+                                    alt="image">
                             </div>
                             <p class="fw-bold mt-2">{{ $product->name }}</p>
                             <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
                             <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
                         </a>
+                    
+                            @if (session()->has('user_id'))
+                                <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
+                                @if ($isInWishlist)
+                                    <a
+                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
+                                        class="nav-link">
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ route('user.showLogin') }}" class="nav-link">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>
 
             </div>
         </section>
+
+        <section class="favourite">
+            <!-- Button trigger modal -->
+            <button id="fixed-button" type="button" class="btn btn-danger me-3" data-bs-toggle="modal"
+                data-bs-target="#favourite">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade modal-xl" id="favourite" tabindex="-1" aria-labelledby="favouriteLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="favouriteLabel">Favorite product</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                @php
+                                    $hasProduct = false;
+                                @endphp
+                                @if ($wishlists)
+                                    @foreach ($wishlists as $wishlist)
+                                        @if ($wishlist->user_id == session('user_id') && $wishlist->product_id)
+                                            @foreach ($products as $product)
+                                                @if ($product->id == $wishlist->product_id)
+                                                    @php
+                                                        $hasProduct = true;
+                                                    @endphp
+                                                    <div class="col-3 hoverProducts text-center">
+                                                        <div class="container-image">
+                                                            <img class="image"
+                                                                src="{{ asset('/storage/images/' . $product->image) }}"
+                                                                alt="image">
+                                                        </div>
+                                                        <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                                        <span class="stock">{{ $product->stock }}</span>
+                                                        <p class="fw-bold fs-4">{{ $product->price }}</p>
+                                                        <a
+                                                            href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    @if (!$hasProduct)
+                                        <p>No product</p>
+                                    @endif
+                                @else
+                                    <p>No product</p>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </div>
-    </div>
+
 @endsection

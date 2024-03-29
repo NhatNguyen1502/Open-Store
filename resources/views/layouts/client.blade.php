@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="icon" href="{{ asset('storage/images/fav.svg') }}" type="image/x-icon">
     <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    @yield('css');
+    @yield('css')
 </head>
 
 <body>
