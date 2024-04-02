@@ -13,6 +13,7 @@
     <h1>Your Cart</h1>
     <div class="row">
       <div class="col-lg-7 col-md-12 border rounded" id="product-body">
+      <?php $subtotal = 0; ?> <!-- Khởi tạo biến tổng giá trị -->
       @foreach( $cartProducts as $product)
       <div class="row mt-4 p-4">
         <div class="col-5">
@@ -20,22 +21,24 @@
         </div>
         <div class="col-4">
         <h3>{{ $product->name }}</h3> 
-          <p> Size: 1</p>                  
-          <p>Quantity: {{ $product->total_quantity }}</p>                  
+          <p> Size: 1</p>                                   
           <p>{{ $product->price }}</p>
         </div>
-        <div class="col-3 d-flex flex-column">
-          <div class="icon-cart">
-            <i class="fa fa-trash" style="color:red" onclick="deleteCartItem()"></i>
-          </div>
+        <div class="col-3 d-flex align-items-center justify-content-between ">
           <div class="nut">
-          <input class="minus is-form" type="button" value="-" onclick="changeQuantity()">
-          <input aria-label="quantity" class="input-qty" style='width: 100px' max="Số tối đa" min="1" name="" type="number" value="${element.quantity}" onchange="updateCartItem()">
-          <input class="plus is-form" type="button" value="+" onclick="changeQuantity()">
+          <!-- <input class="minus is-form" type="button" value="-" onclick="changeQuantity()"> -->
+          <input aria-label="quantity" class="input-qty p-2" style='width: 60px' max="Số tối đa" min="1" name="" type="number" value="{{ $product->total_quantity }}" onchange="updateCartItem()">
+          <!-- <input class="plus is-form" type="button" value="+" onclick="changeQuantity()"> -->
+          </div>
+          <div class="icon-cart">
+          <a href="{{ route('removeCartProduct', ['product_id' => $product->id ]) }}">
+              <i class="fa fa-trash" style="color:red" onclick="deleteCartItem()"></i>
+          </a>
           </div>
         </div>
       </div>
       <hr>
+      <?php $subtotal += $product->price*$product->total_quantity; ?> 
       @endforeach
 
       </div>
@@ -47,7 +50,7 @@
               <span>Subtotal:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="subtotal"></span>
+              <span id="subtotal">{{ $subtotal }}$</span> 
             </div>
           </div>
           <div class="row">
@@ -55,7 +58,7 @@
               <span>Delivery Fee:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="deliveryFee">Free</span>
+              <span id="deliveryFee">40$</span>
             </div>
           </div>
           <div class="row">
@@ -63,7 +66,7 @@
               <span>Total:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="totalPrice"></span>
+              <span id="totalPrice">{{ $subtotal+40}}$</span> <!-- Sử dụng lại giá trị tổng cho total -->
             </div>
           </div>
           <div class="row mt-3">

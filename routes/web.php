@@ -34,6 +34,7 @@ Route::get('/products/{category_id}', [ProductController::class, 'showCategory']
 Route::get('/detail/{product_id}', [ProductController::class, 'showDetail'])->name('showDetail');
 Route::post('/addToCart/{product_id}', [ProductController::class, 'addToCart'])->name('addToCart');
 Route::get('/cart/{user_id}', [ProductController::class, 'showCart'])->name('cart');
+Route::get('/cart/delete/{product_id}', [ProductController::class, 'removeCartProduct'])->name('removeCartProduct');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
 Route::post('/checkout', [OrderController::class, 'store']);
 

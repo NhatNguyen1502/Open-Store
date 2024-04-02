@@ -135,4 +135,19 @@ class ProductController extends Controller
         $this->products->deleteProduct($id);
         return redirect()->route('products.index')->with('success', 'product deleted successfully.');
     }
+
+    public function removeCartProduct($product_id)
+    {
+        $user_id = session('user_id');
+        DB::table('carts')->where('user_id', $user_id)->where('product_id', $product_id)->delete();
+        // return redirect()->route('clients.product', compact($products))->with('success', 'Product deleted successfully.');
+        $cartProducts = DB::table('carts')
+            ->where('user_id', $user_id)
+            ->join('products', 'carts.product_id', '=', 'products.id')
+            ->select('products.*', DB::raw('SUM(carts.quantity) as total_quantity'))
+            ->groupBy('products.id')
+            ->get();
+        return view('clients.cart', compact('cartProducts'));
+    }
+
 }

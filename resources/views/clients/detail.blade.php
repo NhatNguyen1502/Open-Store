@@ -33,12 +33,12 @@
                     <form action="{{ route('addToCart', ['product_id' => $product->id]) }}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-3 col-6">
+                            <div class="col-sm-3 col-6 p-0">
                                 <p class="sentence ">Choose Size</p>
                                 <div class="sizeOption">
                                     <select name="size" id="sizeOptions">
                                         <option value="empty">Select size</option>
-                                        {{ $product->name }};
+                                                {{ $product->name }};
                                     </select>
                                 </div>
                             </div>
