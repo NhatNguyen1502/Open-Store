@@ -39,9 +39,6 @@ class Products extends Model
         return $product;
     }
     
-
-
-
     public function addProduct($data)
     {
         $product = new Products();
