@@ -10,16 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src=" https://kit.fontawesome.com/e1aaf64c7e.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}">
-    @yield('css');
+    <link rel="icon" href="{{ asset('storage/images/fav.svg') }}" type="image/x-icon">
+    <script src="{{ asset('assets/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    @yield('css')
 </head>
 
 <body>
     @include('blocks.header')
-    @include('blocks.footer')
+    @yield('login')
+    @yield('signup')
+    @yield('content')
     @section('sidebar')
-        <p>Main sidebar</p>
+    <p>Main sidebar</p>
     @endsection
+    @include('blocks.footer')
 </body>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </html>

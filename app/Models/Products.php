@@ -4,11 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Products extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'price',
+        'category_id',
+        'discount',
+        'stock',
+        'image',
+        'description',
+        'status',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function getAllProducts()
     {
@@ -16,19 +33,39 @@ class Products extends Model
         return $products;
     }
 
-    public function addUser($data)
+    public function getDetail($product_id)
     {
-        Db::insert('INSERT INTO product (fullname,email,create_at) value (?,?,?)', $data);
-    }
-
-    public function updateUser($data, $id)
-    {
-        $data = array_merge($data, [$id]);
-        return DB::update('UPDATE ' . $this->table . ' SET fullname =?,email =?, update_at= ? where id=?', $data);
+        $product = DB::table('products')->where('id', $product_id)->first();
+        return $product;
     }
     
-    public function deleteUser($id)
+
+
+
+    public function addProduct($data)
     {
-        return  DB::delete("DELETE FROM $this->table WHERE id=? ", [$id]);
+        $product = new Products();
+        $product->name = $data->name;
+        $product->price = $data->price;
+        $product->category_id = $data->category_id;
+        $product->discount = $data->discount;
+        $product->stock = $data->stock;
+        $product->image = $data->image;
+        $product->description = $data->description;
+        $product->status = $data->status;
+        $product->save();
     }
+
+    public function deleteProduct($id)
+    {
+        DB::table('products')->where('id', $id)->delete();
+    }
+
+    public function showCategory($category_id)
+    {
+        $products = DB::table('products')->where('category_id', $category_id)->get();
+        return $products;
+    }
+    
+
 }

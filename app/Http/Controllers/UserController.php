@@ -15,54 +15,54 @@ class UserController extends Controller
     public function index()
     {
         $users = $this->users->getAllUsers();
-        return view('admin.user' , ['users' =>$users]);
+        return view('admin.user' , ['users' => $users, 'UI'=> 'users']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required|unique:users',
+            'name' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+            'status' => 'required',
+        ]);
+
+        $this->users->addUser($request);
+
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        // return dd($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $user = $this->users::findOrFail($id);
+        return view('admin.userEdit', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $id,
+            'name' => 'required',
+            'role' => 'required',
+            'status' => 'required',
+        ]);
+        $data = $request->only([
+            'name',
+            'email',
+            'role',
+            'status',
+            'phone_number',
+        ]);
+        $user = $this->users::findOrFail($id);
+        $user->update($data);
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    } 
+    
+    public function destroy(string $id){
+        $this->users->deleteUser($id);
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

@@ -4,11 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
 class Users extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'email',
+        'role',
+        'status',
+        'phone_number',
+    ];
 
     public function getAllUsers()
     {
@@ -18,17 +28,17 @@ class Users extends Model
 
     public function addUser($data)
     {
-        Db::insert('INSERT INTO users (fullname,email,create_at) value (?,?,?)', $data);
+        $user = new Users();
+        $user->email = $data->email;
+        $user->name = $data->name;
+        $user->role = $data->role;
+        $user->password = bcrypt($data->password);
+        $user->phone_number = $data->phone_number;
+        $user->status = $data->status;
+        $user->save();
     }
 
-    public function updateUser($data, $id)
-    {
-        $data = array_merge($data, [$id]);
-        return DB::update('UPDATE ' . $this->table . ' SET fullname =?,email =?, update_at= ? where id=?', $data);
-    }
-    
-    public function deleteUser($id)
-    {
-        return  DB::delete("DELETE FROM $this->table WHERE id=? ", [$id]);
+    public function deleteUser($id){
+        DB::table('users')->where('id', $id)->delete();
     }
 }

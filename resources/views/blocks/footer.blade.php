@@ -2,27 +2,22 @@
 
 <footer class="footer pt-5 position-relative">
     <div class="container-fluid pb-5">
-        <div
-            class="subcribe bg-dark align-content-center rounded-4 position-absolute top-0 start-50 translate-middle me-sm-0 me-5">
-            <div class="row justify-content-center align-items-center">
-                <div class="col-sm-5 col-12 p-4 me-sm-5 ">
-                    <span class="text-white fw-bold fs-1 lh-1 w-50">STAY UPTO DATE ABOUT OUR LATEST OFFERS</span>
+    <div class="subcribe bg-dark align-content-center rounded-4 position-absolute top-0 start-50 translate-middle me-sm-0 me-5">
+        <form action="{{ route('contact') }}" method="post">
+            @csrf
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="col-sm-9 col-12 p-2 ms-3">
+                    <h2 class='text-light'>Contact with us</h2>
+                    <textarea name="message" class='p-3 rounded mb-2 w-100' style='outline: none ' placeholder='Enter your message here...'></textarea>
                 </div>
-                <div class="col-sm-4 col-12 p-4 pt-sm-4 pt-0 p-0 ms-sm-5 ">
-                    <div class="row">
-                        <input type="text" class="fs-sm-4 w-sm-75 rounded-5 text-center"
-                            placeholder="&#9993; Enter your email" id="letter-mail">
-                    </div>
-                    <div class="row mt-3">
-                        <button class="btn btn-light fs-sm-4 w-sm-75 rounded-5 mt-2" id="subcribe">Subcribe to
-                            Newletter</button>
-                    </div>
-                </div>
+                <button class='m-2 rounded-5' style='width: 100px; height: 40px ' type="submit">Send to us</button>
             </div>
-        </div>
+        </form>
+    </div>
+
         <div class="row mt-sm-0 mt-5">
             <div class="col-sm-4 col-12 m-sm-5 mt-5">
-                <a href="index.html"><img src="../image/Logo.png" alt="logo" class="mt-sm-0 mt-5"
+                <a href="{{ route('homepage') }}"><img src="{{ asset('assets/image/Logo.png') }}" alt="logo" class="mt-sm-0 mt-5"
                         style="width: 100px;"></a>
                 <div class="fw-bold mt-2 mb-2">Contact</div>
                 <div class="mb-3">
