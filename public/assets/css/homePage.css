@@ -147,10 +147,12 @@
         align-items: center;
     }
     .category-item {
-        transition: transform 0.2s ease; /* Thời gian và kiểu chuyển động */
+        transition: transform 0.3s ease; /* Thời gian và kiểu chuyển động */
     }
     
     .category-item:hover {
-        transform: scale(2.5); /* Phình to ra 110% kích thước ban đầu */
+        transform: scale(1.1);
+        background-color: #FFD700;
+        padding: 2px 8px;
     }
-    
+
