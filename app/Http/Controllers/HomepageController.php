@@ -26,8 +26,8 @@ class HomepageController extends Controller
 
     public function index()
     {
-        $products = Products::where('status', 'active')->where('stock', '>', 0)->get();
-        $saleProducts = Products::where('status', 'active')->where('stock', '>', 0)->where('discount', '>', 0)->get();
+        $products = Products::where('status', 'active')->where('is_destroyed', 0)->where('stock', '>', 0)->get();
+        $saleProducts = Products::where('status', 'active')->where('is_destroyed', 0)->where('stock', '>', 0)->where('discount', '>', 0)->get();
         $banners = new Banners();
         $banners = $banners->getAllBanners();
         $wishlists = null;

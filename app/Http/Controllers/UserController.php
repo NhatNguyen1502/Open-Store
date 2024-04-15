@@ -32,7 +32,6 @@ class UserController extends Controller
         $this->users->addUser($request);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
-        // return dd($request);
     }
 
     public function edit($id)

@@ -29,13 +29,13 @@ class Products extends Model
 
     public function getAllProducts()
     {
-        $products = DB::select('SELECT * from products');
+        $products = DB::select('SELECT * from products WHERE is_destroyed = 0');
         return $products;
     }
 
     public function getDetail($product_id)
     {
-        $product = DB::table('products')->where('id', $product_id)->first();
+        $product = DB::table('products')->where('id', $product_id)->where('is_destroyed', 0)->first();
         return $product;
     }
     
@@ -55,12 +55,12 @@ class Products extends Model
 
     public function deleteProduct($id)
     {
-        DB::table('products')->where('id', $id)->delete();
+        DB::table('products')->where('id', $id)->update(['is_destroyed' => 1]);
     }
 
     public function showCategory($category_id)
     {
-        $products = DB::table('products')->where('category_id', $category_id)->get();
+        $products = DB::table('products')->where('category_id', $category_id)->where('is_destroyed', 0)->get();
         return $products;
     }
     

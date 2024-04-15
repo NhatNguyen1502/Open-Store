@@ -10,11 +10,12 @@ class Wishlists extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    // protected $table = 'wishlists';
 
     public function getWishlist($user_id)
     {
-        return $this->select('product_id', 'user_id')
+         return $this->select('product_id', 'user_id')
+            ->join('products', 'wishlists.product_id', '=', 'products.id')
+            ->where('products.is_destroyed', 0)
             ->where('user_id', $user_id)
             ->get();
     }

@@ -20,8 +20,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->products->getAllProducts();
-        $products = Products::with('category')->get();
+        $products = Products::where('is_destroyed', 0)->with('category')->get();
         $UI = 'products';
         $categories = DB::table('category')->get();
         return view('admin.product', compact('products', 'UI', 'categories'));
@@ -65,7 +64,6 @@ class ProductController extends Controller
         $products = $this->products->showCategory($category_id);        
         $categories = Category:: get();
         return view('clients.product', compact('products','categories'));
-        // return dd($products, $categories);
     }
 
     public function showCart($user_id)
@@ -79,9 +77,6 @@ class ProductController extends Controller
         return view('clients.cart', compact('cartProducts'));
     }
     
-    
-
-
     public function showCheckout()
     {
         if (session()->has('user_id')) {
@@ -140,7 +135,6 @@ class ProductController extends Controller
     {
         $user_id = session('user_id');
         DB::table('carts')->where('user_id', $user_id)->where('product_id', $product_id)->delete();
-        // return redirect()->route('clients.product', compact($products))->with('success', 'Product deleted successfully.');
         $cartProducts = DB::table('carts')
             ->where('user_id', $user_id)
             ->join('products', 'carts.product_id', '=', 'products.id')
