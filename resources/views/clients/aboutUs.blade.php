@@ -13,7 +13,7 @@
     <div class="row p-50">
       <div class="col-md-6">
         <div class="carousel-item active">
-          <img src="../image/Team.jpg" alt="Team 1" class="img-fluid">
+          <!-- <img src="../image/Team.jpg" alt="Team 1" class="img-fluid"> -->
         </div>
       </div>
       <div class="col-md-6">
@@ -32,34 +32,27 @@
 
     <h2 class="text-center m-5">Team members</h2>
     <!-- <section class="container my-5"> -->
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-3">
         <div class="member-card">
-          <img src="../image/Nhat.jpg" alt="Member 1" class="img-fluid">
+          <!-- <img src="../image/Nhat.jpg" alt="Member 1" class="img-fluid"> -->
           <h3 class="member-name">Lâm Nhật</h3>
           <p class="member-description">I am the team leader and I am ready to assist when team members encounter
             difficulties.</p>
         </div>
       </div>
+      
       <div class="col-md-3">
         <div class="member-card">
-          <img src="../image/Quyen.jpg" alt="Member 2" class="img-fluid">
-          <h3 class="member-name"></h3>
-          <p class="member-description">I am very passionate about creativity and I am thrilled that we have created
-            this website.</p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="member-card">
-          <img src="../image/ti.jpg" alt="Member 3" class="img-fluid">
-          <h3 class="member-name">Thị Hỉ</h3>
+          <!-- <img src="../image/ti.jpg" alt="Member 3" class="img-fluid"> -->
+          <h3 class="member-name">Đức Quyền</h3>
           <p class="member-description">I am delighted to have this website because I enjoy shopping for items.</p>
         </div>
       </div>
       <div class="col-md-3">
         <div class="member-card">
-          <img src="../image/Le.jpg" alt="Member 4" class="img-fluid">
-          <h3 class="member-name">Thị Lệ</h3>
+          <!-- <img src="../image/Le.jpg" alt="Member 4" class="img-fluid"> -->
+          <h3 class="member-name">Tường Nhật</h3>
           <p class="member-description">It useful to be able to browse the website and make purchases from the website
             we have created.</p>
         </div>
@@ -73,7 +66,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="testimonial-card">
-          <img src="../image/Jonh.jpg" alt="Client 1" class="img-fluid">
+          <!-- <img src="../image/Jonh.jpg" alt="Client 1" class="img-fluid"> -->
           <h3 class="client-name">John Smith</h3>
           <p class="client-quote">"Outstanding clothing website. User-friendly, attractive design, diverse high-quality
             products. Highly recommended!"</p>
@@ -81,7 +74,7 @@
       </div>
       <div class="col-md-4">
         <div class="testimonial-card">
-          <img src="../image/Nath.jpg" alt="Client 2" class="img-fluid">
+          <!-- <img src="../image/Nath.jpg" alt="Client 2" class="img-fluid"> -->
           <h3 class="client-name">Jane Doe</h3>
           <p class="client-quote">"Amazing online clothing store. Stylish designs, great variety, and excellent quality.
             Fast shipping and friendly customer service."</p>
@@ -89,7 +82,7 @@
       </div>
       <div class="col-md-4">
         <div class="testimonial-card">
-          <img src="../image/Mish.jpg" alt="Client 2" class="img-fluid">
+          <!-- <img src="../image/Mish.jpg" alt="Client 2" class="img-fluid"> -->
           <h3 class="client-name">Jane Doe</h3>
           <p class="client-quote">"The product quality is excellent, and the customer service is professional. I am
             extremely satisfied with my shopping experience on this website."</p>

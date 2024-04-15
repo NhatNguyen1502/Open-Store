@@ -20,10 +20,10 @@
     @yield('login')
     @yield('signup')
     @yield('content')
-    @include('blocks.footer')
     @section('sidebar')
-        <p>Main sidebar</p>
+    <p>Main sidebar</p>
     @endsection
+    @include('blocks.footer')
 </body>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 </html>
