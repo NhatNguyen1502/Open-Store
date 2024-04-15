@@ -26,6 +26,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request;
+        $data->status = 'new';
         $this->orders->addOrder($data);
         return redirect()->route('homepage')->with('success', 'Order created successfully.');
     }

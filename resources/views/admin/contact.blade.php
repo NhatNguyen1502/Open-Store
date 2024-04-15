@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('addbtn')
-@endsection 
+@endsection
 
 @section('thead')
     <tr class="table-dark">
@@ -26,21 +26,19 @@
                     @csrf
                     @method('PATCH')
                     <div class="btn-group">
-                        <input onchange="handleUpdate({{ $contact->id }})" type="radio" class="btn-check"
-                            name="is_contact" id="new-{{ $contact->id }}" value="1"
-                            {{ $contact->is_contact == 1 ? 'checked' : '' }}>
-                        <label class="btn btn-outline-primary" for="new-{{ $contact->id }}">Yes</label>
+                        <input onchange="handleUpdate({{ $contact->id }})" type="radio" class="btn-check" name="is_contact"
+                            id="new-{{ $contact->id }}" value="1" {{ $contact->is_contact == 1 ? 'checked' : '' }}>
+                        <label class="btn btn-outline-primary" for="new-{{ $contact->id }}">Contacted</label>
                         <input onchange="handleUpdate({{ $contact->id }})" type="radio" class="btn-check"
                             name="is_contact" id="delivering-{{ $contact->id }}" value="0"
                             {{ $contact->is_contact == 0 ? 'checked' : '' }}>
-                        <label class="btn btn-outline-primary" for="delivering-{{ $contact->id }}">No</label>
+                        <label class="btn btn-outline-primary" for="delivering-{{ $contact->id }}">Pending</label>
                     </div>
                 </form>
             </td>
         </tr>
     @endforeach
 @endsection
-
 
 @section('script')
     <script>
