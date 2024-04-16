@@ -19,7 +19,7 @@
                 <button type="button" class="btn me-3 p-0" data-bs-toggle="modal" data-bs-target="#modal1"
                     href="/login"><i class="fa-regular fa-circle-user fs-2 m-0" id="user-icon"></i></button>
                 @if (session('user_id'))
-                    <a href="{{ route('cart', ['user_id' => 1]) }}" class="text-black">
+                    <a href="{{ route('cart', ['user_id' => session('user_id')]) }}" class="text-black">
                         <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
                             <span
                                 class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
@@ -27,7 +27,7 @@
                         </i>
                     </a>
                 @else
-                    <a href="#" class="text-black">
+                    <a href="{{ route('login') }}" class="text-black">
                         <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
                             <span
                                 class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
@@ -64,7 +64,7 @@
                                     </i>
                                 </a>
                             @else
-                                <a href="#" class="text-black">
+                                <a href="{{ route('login') }}" class="text-black">
                                     <i class="fa-solid fa-bag-shopping fs-2 me-3 position-relative" id="cart-icon">
                                         <span
                                             class="cart position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-2"
