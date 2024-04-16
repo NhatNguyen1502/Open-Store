@@ -14,6 +14,8 @@
         <h2 class="fw-bold mt-3 ">Filters</h2>
         <hr>
         <ul class="list-unstyled">
+        <li class="mb-3 text-dark category-item"><a href="{{ route('showProducts') }}" class="text-decoration-none text-dark fw-bolder" style='text-transform: capitalize;' >All</a></li>
+
           @foreach( $categories as $category)
             <li class="mb-3 text-dark category-item"><a href="{{ route('showCategory', ['category_id' => $category->id]) }}" class="text-decoration-none text-dark fw-bolder" style='text-transform: capitalize;' >{{ $category->name }}</a></li>
           @endforeach

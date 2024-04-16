@@ -6,7 +6,11 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('assets/css/homePage.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/hearder-footer.css') }}">
+ <script src="{{ asset('assets/js/cart.js') }}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 @endsection
+
+
 
 @section('content')
 <div class="container-fluid bg-light">
@@ -27,7 +31,7 @@
         <div class="col-3 d-flex align-items-center justify-content-between ">
           <div class="nut">
           <!-- <input class="minus is-form" type="button" value="-" onclick="changeQuantity()"> -->
-          <input aria-label="quantity" class="input-qty p-2" style='width: 60px' max="Số tối đa" min="1" name="" type="number" value="{{ $product->total_quantity }}" onchange="updateCartItem()">
+          <input aria-label="quantity" class="input-qty p-2" id='input{{ $product->id }}' style='width: 60px' max="Số tối đa" min="1" name="" type="number" value="{{ $product->total_quantity }}"  onchange="updateCartItem({{ $product->id }}, {{ $product->price }})">
           <!-- <input class="plus is-form" type="button" value="+" onclick="changeQuantity()"> -->
           </div>
           <div class="icon-cart">
