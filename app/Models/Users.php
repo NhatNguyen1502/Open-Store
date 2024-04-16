@@ -22,7 +22,7 @@ class Users extends Model
 
     public function getAllUsers()
     {
-        $users = DB::select('SELECT * from users');
+        $users = DB::select('SELECT * FROM users WHERE is_destroyed = 0');
         return $users;
     }
 
@@ -39,6 +39,6 @@ class Users extends Model
     }
 
     public function deleteUser($id){
-        DB::table('users')->where('id', $id)->delete();
+        DB::table('users')->where('id', $id)->update(['is_destroyed' => 1]);
     }
 }
