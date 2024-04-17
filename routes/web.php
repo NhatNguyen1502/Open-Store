@@ -37,6 +37,7 @@ Route::get('/cart/{user_id}', [ProductController::class, 'showCart'])->name('car
 Route::get('/cart/delete/{product_id}', [ProductController::class, 'removeCartProduct'])->name('removeCartProduct');
 Route::get('/checkout', [ProductController::class, 'showCheckout'])->name('checkout');
 Route::post('/checkout', [OrderController::class, 'store']);
+Route::get('/momo/callback', [OrderController::class, 'handleCallback']);
 
 Route::get('/about', function () {
     return view('clients.aboutUs');

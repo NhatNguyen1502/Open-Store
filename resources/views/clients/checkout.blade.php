@@ -36,7 +36,7 @@
                             <lable for="payment-method " class="col-form-label">Payment method: </lable>
                             <select class="form-select" name="payment_method" required>
                                 <option value="COD" selected>COD</option>
-                                <option value="MOMO" disabled>MOMO (feature is maintaining)</option>
+                                <option value="MOMO">MOMO (feature is maintaining)</option>
                             </select>
                         </div>
                     </div>
