@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
 use App\Models\Products;
 use App\Models\Category;
 use App\Models\Wishlists;
@@ -41,9 +41,8 @@ class ProductController extends Controller
     public function showDetail($product_id)
     {
         $product = $this->products->getDetail($product_id);
-        $categories = Category:: get();
-        return view('clients.detail', compact('product','categories'));
-        
+        $categories = Category::get();
+        return view('clients.detail', compact('product', 'categories'));
     }
 
     public function addToCart(Request $request, $product_id)
@@ -51,10 +50,10 @@ class ProductController extends Controller
         $user_id = session('user_id');
         $quantity = $request->quantity;
         $cartItem = DB::table('carts')
-                        ->where('user_id', $user_id)
-                        ->where('product_id', $product_id)
-                        ->first();
-    
+            ->where('user_id', $user_id)
+            ->where('product_id', $product_id)
+            ->first();
+
         if ($cartItem) {
             DB::table('carts')
                 ->where('user_id', $user_id)
@@ -64,19 +63,19 @@ class ProductController extends Controller
             DB::table('carts')->insert([
                 'product_id' => $product_id,
                 'user_id' => $user_id,
-                'quantity' => $quantity,    
+                'quantity' => $quantity,
             ]);
         }
-    
+
         return redirect()->route('homepage')->with('success', 'Product is added to cart successfully.');
     }
-    
+
 
     public function showCategory($category_id)
     {
-        $products = $this->products->showCategory($category_id);        
-        $categories = Category:: get();
-        return view('clients.product', compact('products','categories'));
+        $products = $this->products->showCategory($category_id);
+        $categories = Category::get();
+        return view('clients.product', compact('products', 'categories'));
     }
 
     public function showCart($user_id)
@@ -84,12 +83,14 @@ class ProductController extends Controller
         $cartProducts = DB::table('carts')
             ->where('user_id', $user_id)
             ->join('products', 'carts.product_id', '=', 'products.id')
-            ->select('products.*', DB::raw('SUM(carts.quantity) as total_quantity'))
-            ->groupBy('products.id')
+            ->select('products.id', 'products.name', 'products.price', 'products.image', DB::raw('SUM(carts.quantity) as total_quantity'))
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.image')
             ->get();
+
         return view('clients.cart', compact('cartProducts'));
     }
-    
+
+
     public function showCheckout()
     {
         if (session()->has('user_id')) {
@@ -102,7 +103,7 @@ class ProductController extends Controller
                 ->get();
             return view('clients.checkout', compact('cartProducts', 'user'));
         }
-        return redirect()->route('homepage');                                                                               
+        return redirect()->route('homepage');
     }
 
     public function store(Request $request)
@@ -151,10 +152,9 @@ class ProductController extends Controller
         $cartProducts = DB::table('carts')
             ->where('user_id', $user_id)
             ->join('products', 'carts.product_id', '=', 'products.id')
-            ->select('products.*', DB::raw('SUM(carts.quantity) as total_quantity'))
-            ->groupBy('products.id')
+            ->select('products.id', 'products.name', 'products.price', 'products.image', DB::raw('SUM(carts.quantity) as total_quantity'))
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.image')
             ->get();
         return view('clients.cart', compact('cartProducts'));
     }
-
 }

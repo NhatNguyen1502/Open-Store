@@ -30,7 +30,7 @@
                   <img class="mb-3 responsive-image w-100" style=' height: 232px' src="{{ asset('storage/images/' .$product->image) }}" alt="">
                   <p class="mb-1 font-weight-bold title text-center">{{ $product->name }}</p>
                   <span class="price text-danger text-center" style='text-decoration: line-through;'>{{ $product->price }}$</span>
-                  <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
+                  <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}.000$</p>
               </a>
             </div>
             @endforeach

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class Orders extends Model
 {
@@ -18,11 +18,11 @@ class Orders extends Model
      public function addOrder($data)
     {
         $order = new Orders();
-        $order->user_id = $data->user_id;
-        $order->phone_number = $data->phone_number;
-        $order->address = $data->address;
-        $order->payment_method = $data->payment_method;
-        $order->total_price = $data->total_price;
+        $order->user_id = $data['user_id'];
+        $order->phone_number = $data['phone_number'];
+        $order->address = $data['address'];
+        $order->payment_method = $data['payment_method'];
+        $order->total_price = $data['total_price'];
         $order->status = 'new';
 
         $products = DB::table('carts')

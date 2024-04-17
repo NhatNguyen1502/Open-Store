@@ -26,7 +26,7 @@
         <div class="col-4">
         <h3>{{ $product->name }}</h3> 
           <p> Size: 1</p>                                   
-          <p>{{ $product->price }}</p>
+          <p>{{ $product->price }} đ</p>
         </div>
         <div class="col-3 d-flex align-items-center justify-content-between ">
           <div class="nut">
@@ -54,7 +54,7 @@
               <span>Subtotal:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="subtotal">{{ $subtotal }}$</span> 
+              <span id="subtotal">{{ $subtotal }}đ</span> 
             </div>
           </div>
           <div class="row">
@@ -62,7 +62,7 @@
               <span>Delivery Fee:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="deliveryFee">40$</span>
+              <span id="deliveryFee">Free</span>
             </div>
           </div>
           <div class="row">
@@ -70,7 +70,7 @@
               <span>Total:</span>
             </div>
             <div class="col-4 text-right">
-              <span id="totalPrice">{{ $subtotal+40}}$</span> <!-- Sử dụng lại giá trị tổng cho total -->
+              <span id="totalPrice">{{ $subtotal}}đ</span> <!-- Sử dụng lại giá trị tổng cho total -->
             </div>
           </div>
           <div class="row mt-3">
