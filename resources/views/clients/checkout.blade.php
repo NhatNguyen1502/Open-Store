@@ -20,8 +20,7 @@
                         <label for="name">Name</label>
                         <input type="text" class="form-control" name="name" id="name" value="{{ $user->name }}"
                             required>
-                        <input type="hidden" class="form-control" name="user_id" value="{{ session('user_id') }}"
-                            required>
+                        <input type="hidden" class="form-control" name="user_id" value="{{ session('user_id') }}" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone number</label>
@@ -36,7 +35,7 @@
                             <lable for="payment-method " class="col-form-label">Payment method: </lable>
                             <select class="form-select" name="payment_method" required>
                                 <option value="COD" selected>COD</option>
-                                <option value="MOMO">MOMO (feature is maintaining)</option>
+                                <option value="MOMO">MOMO</option>
                             </select>
                         </div>
                     </div>
@@ -60,7 +59,7 @@
                                 <td><img src="{{ asset('/storage/images/' . $product->image) }}" alt="img"
                                         width="50px"> {{ $product->name }}</td>
                                 <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->price * (100 - $product->discount) }}$</td>
+                                <td>{{ $product->price * (100 - $product->discount) }}đ</td>
                             </tr>
                             <div class="d-none">
                                 {{ $total += $product->price * (100 - $product->discount) * $product->quantity }}
@@ -68,7 +67,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                <h4 id="total">Total: {{ $total }}$ </h4>
+                <h6>Delivery fee: Free </h6>
+                <h4 id="total">Total: {{ $total }}đ </h4>
                 <input type="hidden" name="total_price" value="{{ $total }}">
                 <button type="submit" class="btn btn-success" id="checkout">Checkout</button>
             </div>

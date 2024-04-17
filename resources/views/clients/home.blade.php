@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-sm-6 col-12">
                 <div class="heading">
-                    <h1 class="fw-bold">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
+                    <h1 class="fw-bold">FIND JEWELRY THAT MATCHES YOUR STYLE</h1>
                 </div>
                 <div class="text">
                     <P>Browse through our diverse range of meticulously crafted garments, designed to bring out your
@@ -100,14 +100,17 @@
                 <div class="row pt-3">
                     @foreach ($recommendProducts as $product)
                         <div class="col-sm-3 col-12 hoverProducts text-center">
-                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
-                            <div class="container-image">
-                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
-                            </div>
-                            <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="price text-danger" style='text-decoration: line-through'>{{ $product->price }}$</span>
-                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
-                        </a>
+                            <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
+                                <div class="container-image">
+                                    <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
+                                </div>
+                                <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                <span class="price text-danger"
+                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                <p class="fw-bold fs-4">
+                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                                </p>
+                            </a>
                         </div>
                     @endforeach
                 </div>
@@ -119,36 +122,38 @@
             <div class="container pt-3">
                 <div class="row">
                     @foreach ($saleProducts as $product)
-                    <div class="col-sm-3 col-12 hoverProducts text-center">
-                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
-                            <div class="container-image">
-                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}" alt="image">
-                            </div>
-                            <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
-                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
-                        </a>
-      
-                        @if (session()->has('user_id'))
-                            <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
-                            @if ($isInWishlist)
-                                <a
-                                    href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>
-                                </a>
+                        <div class="col-sm-3 col-12 hoverProducts text-center">
+                            <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
+                                <div class="container-image">
+                                    <img class="image" src="{{ asset('/storage/images/' . $product->image) }}"
+                                        alt="image">
+                                </div>
+                                <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                <span class="price text-danger"
+                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                <p class="fw-bold fs-4">
+                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                            </a>
+
+                            @if (session()->has('user_id'))
+                                <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
+                                @if ($isInWishlist)
+                                    <a
+                                        href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
+                                        class="nav-link">
+                                        <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                    </a>
+                                @endif
                             @else
-                                <a href="{{ route('addWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}"
-                                    class="nav-link">
+                                <a href="{{ route('user.showLogin') }}" class="nav-link">
                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
                                 </a>
                             @endif
-                        @else
-                            <a href="{{ route('user.showLogin') }}" class="nav-link">
-                                <i class="fa fa-heart-o" aria-hidden="true"></i>
-                            </a>
-                        @endif
-                    </div>
-                
+                        </div>
                     @endforeach
 
                 </div>
@@ -162,16 +167,18 @@
                 <div class="row pt-3">
                     @foreach ($products as $product)
                         <div class="col-sm-3 col-12 hoverProducts text-center">
-                        <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
-                            <div class="container-image">
-                                <img class="image" src="{{ asset('/storage/images/' . $product->image) }}"
-                                    alt="image">
-                            </div>
-                            <p class="fw-bold mt-2">{{ $product->name }}</p>
-                            <span class="price text-danger" style='text-decoration: line-through;'>{{ $product->price }}$</span>
-                            <p class="fw-bold fs-4">{{ ($product->price - ($product->price * $product->discount / 100)) }}$</p>
-                        </a>
-                    
+                            <a href="{{ route('showDetail', $product->id) }}" class='nav-link'>
+                                <div class="container-image">
+                                    <img class="image" src="{{ asset('/storage/images/' . $product->image) }}"
+                                        alt="image">
+                                </div>
+                                <p class="fw-bold mt-2">{{ $product->name }}</p>
+                                <span class="price text-danger"
+                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                <p class="fw-bold fs-4">
+                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                            </a>
+
                             @if (session()->has('user_id'))
                                 <?php $isInWishlist = $wishlists->contains('product_id', $product->id); ?>
                                 @if ($isInWishlist)
@@ -233,8 +240,7 @@
                                                                 alt="image">
                                                         </div>
                                                         <p class="fw-bold mt-2">{{ $product->name }}</p>
-                                                        <span class="stock">{{ $product->stock }}</span>
-                                                        <p class="fw-bold fs-4">{{ $product->price }}</p>
+                                                        {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
                                                         <a
                                                             href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
                                                             <i class="fa fa-heart" aria-hidden="true"></i>
