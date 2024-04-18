@@ -106,10 +106,11 @@
                                 </div>
                                 <p class="fw-bold mt-2">{{ $product->name }}</p>
                                 <span class="price text-danger"
-                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                    style='text-decoration: line-through;'>{{ number_format($product->price, 0, ',', '.') }}đ</span>
                                 <p class="fw-bold fs-4">
-                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                                    {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}đ
                                 </p>
+
                             </a>
                         </div>
                     @endforeach
@@ -130,9 +131,11 @@
                                 </div>
                                 <p class="fw-bold mt-2">{{ $product->name }}</p>
                                 <span class="price text-danger"
-                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                    style='text-decoration: line-through;'>{{ number_format($product->price, 0, ',', '.') }}đ</span>
                                 <p class="fw-bold fs-4">
-                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                                    {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}đ
+                                </p>
+
                             </a>
 
                             @if (session()->has('user_id'))
@@ -174,9 +177,11 @@
                                 </div>
                                 <p class="fw-bold mt-2">{{ $product->name }}</p>
                                 <span class="price text-danger"
-                                    style='text-decoration: line-through;'>{{ $product->price }}$</span>
+                                    style='text-decoration: line-through;'>{{ number_format($product->price, 0, ',', '.') }}đ</span>
                                 <p class="fw-bold fs-4">
-                                    {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                                    {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}đ
+                                </p>
+
                             </a>
 
                             @if (session()->has('user_id'))
@@ -240,7 +245,7 @@
                                                                 alt="image">
                                                         </div>
                                                         <p class="fw-bold mt-2">{{ $product->name }}</p>
-                                                        {{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                                                        {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, ',', '.') }}đ
                                                         <a
                                                             href="{{ route('deleteWishlist', ['product_id' => $product->id, 'user_id' => session('user_id')]) }}">
                                                             <i class="fa fa-heart" aria-hidden="true"></i>

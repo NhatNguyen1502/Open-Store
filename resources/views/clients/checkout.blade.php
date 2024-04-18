@@ -2,7 +2,6 @@
 
 @section('title', 'Checkout')
 
-
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/css/homePage.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/hearder-footer.css') }}">
@@ -47,28 +46,34 @@
                         <tr>
                             <th scope="col">Product</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Discount</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Sub Price</th>
                         </tr>
                     </thead>
                     <tbody id="orderTable">
-                        <div class="d-none">
-                            {{ $total = 0 }}
-                        </div>
+                        @php
+                            $total = 0;
+                        @endphp
                         @foreach ($cartProducts as $product)
                             <tr>
                                 <td><img src="{{ asset('/storage/images/' . $product->image) }}" alt="img"
                                         width="50px"> {{ $product->name }}</td>
                                 <td>{{ $product->quantity }}</td>
-                                <td>{{ $product->price * (100 - $product->discount) }}đ</td>
+                                <td>{{ number_format($product->discount, 0, ',', '.') }}%</td>
+                                <td>{{ number_format($product->price, 0, ',', '.') }}</td>
+                                <td>{{ number_format((($product->price * (100 - $product->discount)) / 100) * $product->quantity, 0, ',', '.') }}
+                                </td>
+
                             </tr>
-                            <div class="d-none">
-                                {{ $total += $product->price * (100 - $product->discount) * $product->quantity }}
-                            </div>
+                            @php
+                                $total += $product->price * (100 - $product->discount) * $product->quantity;
+                            @endphp
                         @endforeach
                     </tbody>
                 </table>
                 <h6>Delivery fee: Free </h6>
-                <h4 id="total">Total: {{ $total }}đ </h4>
+                <h4 id="total">Total: {{ number_format($total / 100, 0, ',', '.') }}đ</h4>
                 <input type="hidden" name="total_price" value="{{ $total }}">
                 <button type="submit" class="btn btn-success" id="checkout">Checkout</button>
             </div>

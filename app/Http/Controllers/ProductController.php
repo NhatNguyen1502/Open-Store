@@ -83,8 +83,8 @@ class ProductController extends Controller
         $cartProducts = DB::table('carts')
             ->where('user_id', $user_id)
             ->join('products', 'carts.product_id', '=', 'products.id')
-            ->select('products.id', 'products.name', 'products.price', 'products.image', DB::raw('SUM(carts.quantity) as total_quantity'))
-            ->groupBy('products.id', 'products.name', 'products.price', 'products.image')
+            ->select('products.id', 'products.name', 'products.price', 'products.image', 'products.discount', DB::raw('SUM(carts.quantity) as total_quantity'))
+            ->groupBy('products.id', 'products.name', 'products.price', 'products.image', 'products.discount')
             ->get();
 
         return view('clients.cart', compact('cartProducts'));

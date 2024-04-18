@@ -21,8 +21,12 @@
                 <h1 class="fw-bold">{{ $product->name }}</h1>
                 <div class="containerPrice">
                     <span class="price text-danger text-center"
-                        style='text-decoration: line-through;'>{{ $product->price }}$</span> -{{ $product->discount }}%
-                    <p class="fw-bold fs-4">{{ $product->price - ($product->price * $product->discount) / 100 }}.000$</p>
+                        style='text-decoration: line-through;'>{{ number_format($product->price, 0, '.', ',') }}$</span> -
+                    {{ $product->discount }}%
+
+                    <p class="fw-bold fs-4">
+                        {{ number_format($product->price - ($product->price * $product->discount) / 100, 0, '.', ',') }}.000$
+                    </p>
                     </p>
                 </div>
                 <p class="sentence">{{ $product->description }}</p>
