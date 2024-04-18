@@ -79,7 +79,7 @@
             <td>{{ $item->id }}</td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->category->name }}</td>
-            <td>{{ $item->price }}</td>
+            <td>{{ number_format($item->price, 0, ',', '.') }}</td>
             <td>{{ $item->discount }}</td>
             <td>{{ $item->stock }}</td>
             <td>
