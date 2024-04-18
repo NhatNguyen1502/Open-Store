@@ -74,6 +74,8 @@ class OrderController extends Controller
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
             $orderInfo = "Thanh toán qua MoMo";
             $amount = $request->total_price;
+            $amount = intval($amount)/100;
+            // dd($amount);
             $orderId = time() . "";
             $redirectUrl = "http://127.0.0.1:8000/momo/callback";
             $ipnUrl = "http://127.0.0.1:8000/";
